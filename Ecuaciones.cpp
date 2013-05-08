@@ -13,7 +13,7 @@ Matriz *MatrizG(const int n) {
 Matriz *MatrizSt(const int n) {
 	Matriz *mat = new Matriz(1,n);
 	for(int i=0;i<n;i++) {
-		mat->elem(i,0) = 1+(i/2.0);
+		mat->elem(i,0) = i+(1/2.0);
 	}
 	*mat*(M_PI/n);
 	return mat;

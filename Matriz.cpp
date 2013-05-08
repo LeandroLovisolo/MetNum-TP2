@@ -1,5 +1,6 @@
 #include "Matriz.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
@@ -17,11 +18,11 @@ double &Matriz::elem(const int x, const int y) {
 	return vectorMatriz[y*columnas + x];
 }
 
-const int Matriz::fils() {
+const int Matriz::fils() const {
 	return filas;
 }
 
-const int Matriz::cols() {
+const int Matriz::cols() const {
 	return columnas;
 }
 
@@ -57,11 +58,31 @@ void Matriz::operator+(Matriz &mat) {
 	}
 }
 
-void Matriz::print() {
+void Matriz::print(){
 	for(int i=0;i<filas;i++) {
 		for(int j=0;j<columnas;j++) {
 			cout << this->elem(j,i) << " ";
 		}
 		cout << endl;
 	}
+}
+
+void Matriz::intercambiarFilas(const int i, const int j) {
+	for(int x=0;x<columnas;x++) {
+		double elemento = this->elem(x,i);
+		this->elem(x,i) = this->elem(x,j);
+		this->elem(x,j) = elemento;
+	}
+}
+
+const int Matriz::filaConMayorAbsEnCol(const int col) {
+	int filaMayor = 0;
+	int mayor = this->elem(col,0);
+	for(int y=1;y<filas;y++) {
+		if(abs(this->elem(col,y)) > mayor) {
+			mayor = abs(this->elem(col,y));
+			filaMayor = y;
+		}
+	}
+	return filaMayor;
 }
