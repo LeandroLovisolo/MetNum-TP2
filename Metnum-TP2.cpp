@@ -4,16 +4,7 @@
 using namespace std;
 
 int main() {
-	//Matriz *g = MatrizG(5);
-	//g->print();
-	//Matriz *st = MatrizSt(5);
-	//st->print();
-	//delete g;
-	//delete st;
-	Matriz *t = MatrizT(5);
-	t->print();
-	//Matriz *Msom = MatrizMsombrero(5);
-	//Msom->print();
-	//delete &Msom;
+	Matriz *mat = MatrizM(5, 10);
+	mat->print();
 	return 0;
 }

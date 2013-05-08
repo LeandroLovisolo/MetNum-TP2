@@ -13,6 +13,7 @@ Matriz::~Matriz() {
 }
 
 double &Matriz::elem(const int x, const int y) {
+	//cout << "(" << x << "," << y << ") Posicion en vector: " << y*columnas + x << endl;
 	return vectorMatriz[y*columnas + x];
 }
 
@@ -36,7 +37,7 @@ void Matriz::operator*(Matriz &mat) {
 		}
 	}
 	this->columnas = mat.columnas;
-	delete vectorMatriz;
+	delete this->vectorMatriz;
 	vectorMatriz = nuevaMatriz;
 }
 
@@ -59,7 +60,7 @@ void Matriz::operator+(Matriz &mat) {
 void Matriz::print() {
 	for(int i=0;i<filas;i++) {
 		for(int j=0;j<columnas;j++) {
-			cout << this->elem(i,j) << " ";
+			cout << this->elem(j,i) << " ";
 		}
 		cout << endl;
 	}

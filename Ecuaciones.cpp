@@ -5,7 +5,7 @@
 Matriz *MatrizG(const int n) {
 	Matriz *mat = new Matriz(n,1);
 	for(int i=0;i<n;i++) {
-		mat->elem(i,0) = i;
+		mat->elem(0,i) = i;
 	}
 	return mat;
 }
@@ -13,30 +13,27 @@ Matriz *MatrizG(const int n) {
 Matriz *MatrizSt(const int n) {
 	Matriz *mat = new Matriz(1,n);
 	for(int i=0;i<n;i++) {
-		mat->elem(0,i) = 1+(i/2);
+		mat->elem(i,0) = 1+(i/2.0);
 	}
 	*mat*(M_PI/n);
 	return mat;
 }
 
 double C(const int k, const int n) {
-	if(k==1) return sqrt(1/n);
-	return sqrt(2/n);
+	if(k==1) return sqrt(1.0/n);
+	return sqrt(2.0/n);
 }
 
 Matriz *MatrizT(const int n) {
 	Matriz *st = MatrizSt(n);
 	Matriz *g = MatrizG(n);
-	g->print();
-	st->print();
-	*g*(*st);
-	g->print();
-	//delete st;
+	(*g)*(*st);
 	for(int i=0;i<g->cols();i++) {
 		for(int j=0;j<g->fils();j++) {
 			g->elem(i,j) = cos(g->elem(i,j));
 		}
 	}
+	delete st;
 	return g;
 }
 
@@ -48,4 +45,14 @@ Matriz *MatrizMsombrero(const int n) {
 		}
 	}
 	return t;
+}
+
+Matriz *MatrizM(const int n, const int rango) { //Rango es Q
+	Matriz *Msombrero = MatrizMsombrero(n);
+	for(int i=0;i<Msombrero->cols();i++) {
+		for(int j=0;j<Msombrero->fils();j++) {
+			Msombrero->elem(i,j) = floor((rango * Msombrero->elem(i,j) +1)/2.0);
+		}
+	}
+	return Msombrero;
 }
