@@ -85,3 +85,11 @@ const int Matriz::filaConMayorAbsEnCol(const int col) {
 	}
 	return filaMayor;
 }
+
+void Matriz::transformarEnIdent() {
+	for(int y=0;y<filas;y++) {
+		for(int x=0;x<columnas;x++) {
+			this->elem(x,y) = (y == x ? 1 : 0);
+		}
+	}
+}
