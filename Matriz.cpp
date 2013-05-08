@@ -14,7 +14,6 @@ Matriz::~Matriz() {
 }
 
 double &Matriz::elem(const int x, const int y) {
-	//cout << "(" << x << "," << y << ") Posicion en vector: " << y*columnas + x << endl;
 	return vectorMatriz[y*columnas + x];
 }
 
