@@ -56,16 +56,11 @@ int main() {
 	plu.elem(3,1) = 2;
 	plu.elem(3,2) = 3;
 	plu.elem(3,3) = -1;
+<<<<<<< HEAD
 	PruebaMetodo1(mat);
 	delete mat;
 	/*
 	cout << "Matriz Original: " << endl;
-	pair<Matriz*,Matriz*> res = plu.factorizacionPLU();
-	cout << "Matriz P: " << endl;
-	res.first->print();
-	cout << "Matriz L: " << endl;
-	res.second->print();
-	cout << "Matriz U: " << endl;
 	plu.print();
 	cout << "Tratando de re-contruir A = P.L.U" << endl;
 	(*res.first)*(*res.second); //Multiplico P por L
@@ -73,7 +68,7 @@ int main() {
 	res.first->print();
 	cout << "Multiplico PL*U" << endl;
 	(*res.first)*plu; //Multiplico PL por U
-	res.first->print(); */
+	res.first->print();
 	/*
 	cout << "Matriz Original: " << endl;
 	Matriz *L = plu.factorizacionLU();

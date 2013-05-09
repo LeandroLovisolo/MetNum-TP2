@@ -79,8 +79,12 @@ void Matriz::print(){
 }
 
 void Matriz::intercambiarFilas(const int i, const int j) {
+	intercambiarFilas(i, j, columnas);
+}
+
+void Matriz::intercambiarFilas(const int i, const int j, const int hasta) {
 	if(i == j) return;
-	for(int x=0;x<columnas;x++) {
+	for(int x=0;x<hasta;x++) {
 		double elemento = this->elem(i,x);
 		this->elem(i,x) = this->elem(j,x);
 		this->elem(j,x) = elemento;
@@ -125,6 +129,7 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 		cout << "Matriz despues de permutar" << endl;
 		this->print();
 		P->intercambiarFilas(jp,j); //Intercambio las filas en la matriz identidad para tener P
+		L->intercambiarFilas(jp, j, j);
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
 			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
 			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
