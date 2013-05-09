@@ -1,5 +1,5 @@
 CC  = g++
-CFLAGS = -lm
+CFLAGS = -lm -std=c++11
 OBJ = $(addsuffix .o, $(basename $(shell find . -name "*.cpp")))
 BIN    = metnum
 

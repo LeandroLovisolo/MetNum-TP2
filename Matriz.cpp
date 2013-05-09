@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 #include <utility>
+#include <random>
+#include <chrono>
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
@@ -209,6 +211,18 @@ void Matriz::eliminarRuidoMetodo1() {
 	for(int i=0;i<this->filas;i++) {
 		for(int j=0;j<this->columnas;j++) {
 			if(this->elem(i,j) < umbral) this->elem(i,j) = 0;
+		}
+	}
+}
+
+void Matriz::agregarRuidoAditivo() {
+	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+	default_random_engine generator(seed);
+  	normal_distribution<double> distribution(0.0,0.2);
+	for(int i=0;i<this->filas;i++) {
+		for(int j=0;j<this->columnas;j++) {
+			//cout << "Que larga: " << distribution(generator) << endl;
+			this->elem(i,j) += distribution(generator);
 		}
 	}
 }
