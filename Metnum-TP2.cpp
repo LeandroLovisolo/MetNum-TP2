@@ -59,12 +59,14 @@ int main() {
 	plu.elem(3,3) = -1;
 
 	
-	cout << "Matriz Original: " << endl;
+	cout << "Matriz Original:" << endl;
 	pair<Matriz*,Matriz*> res = plu.factorizacionPLU();
-	cout << "Matriz P: " << endl;
+	cout << "Matriz P:" << endl;
 	res.first->print();
-	cout << "Matriz L: " << endl;
+	cout << "Matriz L:" << endl;
 	res.second->print();
+	cout << "Matriz U:" << endl;
+	plu.print();
 	cout << "Tratando de re-contruir A = P.L.U" << endl;
 	(*res.first)*(*res.second); //Multiplico P por L
 	(*res.first)*plu; //Multiplico PL por U
