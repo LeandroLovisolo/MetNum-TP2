@@ -25,6 +25,7 @@ public:
 	std::pair <Matriz*,Matriz*> factorizacionPLU();
 	Matriz* factorizacionLU();
 	Matriz* backwardsSubstitution(Matriz *b);
+	Matriz* Matriz::forwardSubstitution(Matriz *b);
 	void print();
 };
 

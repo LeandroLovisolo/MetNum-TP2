@@ -139,7 +139,7 @@ Matriz* Matriz::factorizacionLU() {
 	return L;
 }
 
-//Ax = b resuelvo sistema (Solo matrices trianguladas)
+//Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
 Matriz* Matriz::backwardsSubstitution(Matriz *b) {
 	Matriz *x = new Matriz(this->columnas,1);
 	for(int i=this->filas-1;i>=0;i--) { //Voy de la fila de abajo para arriba
@@ -147,7 +147,26 @@ Matriz* Matriz::backwardsSubstitution(Matriz *b) {
 		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
 		double valorX = b->elem(i,0);
 		//Hago Xi = (Bi - sum(Aij, Xj)
+		//Recorro las columnas de la posición+1 en que tengo mi incognita
 		for(int j=i+1;j<this->columnas;j++) {
+			valorX -= this->elem(i,j) * this->elem(j,0);
+		}
+		//Xi/Aii para terminar
+		x->elem(i,0) = valorX/this->elem(i,i);
+	}
+	return x;
+}
+
+//Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
+Matriz* Matriz::forwardSubstitution(Matriz *b) {
+	Matriz *x = new Matriz(this->columnas,1);
+	//Recorro las columnas de la posición 0 hasta la posición-1 en que tengo mi incognita
+	for(int i=0;i<this->filas();i++) { //Recorro filas de arriba a abajo
+		//Me armo un acumulador del nuevo valor Xi, voy construyendo el X de arriba hacia abajo
+		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
+		double valorX = b->elem(i,0);
+		//Hago Xi = (Bi - sum(Aij, Xj)
+		for(int j=0;j<i-1;j++) {
 			valorX -= this->elem(i,j) * this->elem(j,0);
 		}
 		//Xi/Aii para terminar
