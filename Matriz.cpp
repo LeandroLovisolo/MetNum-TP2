@@ -119,15 +119,12 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 	resultado = make_pair(P,L);
 	L->transformarEnIdent();
 	P->transformarEnIdent();
-	this->print();
 	for(int j=0;j<this->columnas-1;j++) { //Me voy moviendo por las columnas
 		//Intercambio la fila con el máximo absoluto por la actual
 		//Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
 		//ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
 		int jp = this->filaConMayorAbsEnCol(j,j);
 		this->intercambiarFilas(jp,j);
-		cout << "Matriz despues de permutar" << endl;
-		this->print();
 		P->intercambiarFilas(jp,j); //Intercambio las filas en la matriz identidad para tener P
 		L->intercambiarFilas(jp, j, j);
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
@@ -167,7 +164,7 @@ Matriz* Matriz::backwardsSubstitution(Matriz *b) {
 		//Hago Xi = (Bi - sum(Aij, Xj)
 		//Recorro las columnas de la posición+1 en que tengo mi incognita
 		for(int j=i+1;j<this->columnas;j++) {
-			valorX -= this->elem(i,j) * this->elem(j,0);
+			valorX -= this->elem(i,j) * x->elem(j,0);
 		}
 		//Xi/Aii para terminar
 		x->elem(i,0) = valorX/this->elem(i,i);
@@ -185,7 +182,7 @@ Matriz* Matriz::forwardSubstitution(Matriz *b) {
 		double valorX = b->elem(i,0);
 		//Hago Xi = (Bi - sum(Aij, Xj)
 		for(int j=0;j<i-1;j++) {
-			valorX -= this->elem(i,j) * this->elem(j,0);
+			valorX -= this->elem(i,j) * x->elem(j,0);
 		}
 		//Xi/Aii para terminar
 		x->elem(i,0) = valorX/this->elem(i,i);

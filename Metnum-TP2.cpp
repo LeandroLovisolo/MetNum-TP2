@@ -56,8 +56,16 @@ int main() {
 	plu.elem(3,1) = 2;
 	plu.elem(3,2) = 3;
 	plu.elem(3,3) = -1;
-<<<<<<< HEAD
-	PruebaMetodo1(mat);
+
+	
+	Matriz sonidoTest(4,1);
+	sonidoTest.elem(0,0) = 1;
+	sonidoTest.elem(1,0) = 2;
+	sonidoTest.elem(2,0) = 3;
+	sonidoTest.elem(3,0) = 4;
+	
+	PruebaMetodo1(&sonidoTest);
+	
 	delete mat;
 	/*
 	cout << "Matriz Original: " << endl;
