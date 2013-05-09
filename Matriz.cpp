@@ -109,8 +109,9 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 		//Intercambio la fila con el máximo absoluto por la actual
 		//Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
 		//ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
-		this->intercambiarFilas(this->filaConMayorAbsEnCol(j,j),j);
-		P->intercambiarFilas(this->filaConMayorAbsEnCol(j,j),j); //Intercambio las filas en la matriz identidad para tener P
+		int jp = this->filaConMayorAbsEnCol(j,j);
+		this->intercambiarFilas(jp,j);
+		P->intercambiarFilas(jp,j); //Intercambio las filas en la matriz identidad para tener P
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
 			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
 			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
