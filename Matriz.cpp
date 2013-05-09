@@ -1,6 +1,7 @@
 #include "Matriz.h"
 #include <iostream>
 #include <cmath>
+#include <utility>
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
@@ -75,10 +76,10 @@ void Matriz::intercambiarFilas(const int i, const int j) {
 	}
 }
 
-const int Matriz::filaConMayorAbsEnCol(const int col) {
-	int filaMayor = 0;
-	int mayor = this->elem(col,0);
-	for(int y=1;y<filas;y++) {
+const int Matriz::filaConMayorAbsEnCol(const int col, const int desde) {
+	int filaMayor = desde;
+	int mayor = this->elem(desde,col);
+	for(int y=desde+1;y<filas;y++) {
 		if(abs(this->elem(y,col)) > mayor) {
 			mayor = abs(this->elem(y,col));
 			filaMayor = y;
@@ -95,44 +96,45 @@ void Matriz::transformarEnIdent() {
 	}
 }
 
-void Matriz::factorizacionPLU() {
+//Devuelve en la primera posición a P, en la segunda a L y deja a A como U
+pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 	Matriz *L = new Matriz(this->filas, this->columnas);
 	Matriz *P = new Matriz(this->filas, this->columnas);
+	pair <Matriz*,Matriz*> resultado;
+	resultado = make_pair(P,L);
 	L->transformarEnIdent();
 	P->transformarEnIdent();
-	cout << "Matriz original" << endl;
 	this->print();
 	for(int j=0;j<this->columnas-1;j++) { //Me voy moviendo por las columnas
+		//Intercambio la fila con el máximo absoluto por la actual
+		//Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
+		//ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
+		this->intercambiarFilas(this->filaConMayorAbsEnCol(j,j),j);
+		P->intercambiarFilas(this->filaConMayorAbsEnCol(j,j),j); //Intercambio las filas en la matriz identidad para tener P
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
-			//this->intercambiarFilas(this->filaConMayorAbsEnCol(i),i); //Intercambio la fila con el máximo absoluto por la actual
-			//P->intercambiarFilas(this->filaConMayorAbsEnCol(i),i); //Intercambio las filas en la matriz identidad para tener P
-			L->elem(j,i) = this->elem(j,i)/this->elem(j,j); //Pongo en L Mij
-			//cout << "this->elem(j,i)=" << this->elem(j,i+1) << endl;
-			//cout << "is->elem(j,i-1)=" << this->elem(j,i) << endl;
-			//cout << "Elemento L ("<<j<<","<<i+1<<") = " << L->elem(j,i+1) << endl;
-			for(int x=i;x<this->filas;x++) { //Hago la resta de las filas debajo de las ya trianguladas anteriormente
-				//cout << "X=" << x << endl;
-				for(int h=0;h<this->columnas;h++) { //Resto elemento a elemento
-					//cout << "H=" << h << endl;
-					if(x == 1) {
-						cout << "H="<<h<<" this->elem(h,x) =" << this->elem(h,x) <<" - L->elem(j,i) =" << L->elem(j,i) <<" * this->elem(h,i) = " << this->elem(h,i) << endl;
-					}
-					if(j != h) {
-						//cout << "x!=h " << "this->elem(h,x)=" << this->elem(h,x) << " this->elem(h,i)=" << this->elem(h,i) << endl;
-						this->elem(h,x) = this->elem(h,x) - L->elem(j,i)*this->elem(h,i-1);
-					}
-					else {
-						//cout << "Cayo en h == x" << endl;
-						this->elem(h,x) = 0;
-					}
-				}
+			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
+			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
+			for(int x=j+1;x<columnas;x++) {
+				this->elem(i,x) = this->elem(i,x) - L->elem(i,j)*this->elem(j,x);
 			}
 		}
 	}
-	cout << "Matriz P" << endl;
-	P->print();
-	cout << "Matri< L" << endl;
-	L->print();
-	cout << "Matriz U" << endl;
+	return resultado;
+}
+
+//Devuelve L y la matriz queda como U
+Matriz* Matriz::factorizacionLU() {
+	Matriz *L = new Matriz(this->filas, this->columnas);
+	L->transformarEnIdent();
 	this->print();
+	for(int j=0;j<this->columnas-1;j++) { //Me voy moviendo por las columnas
+		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
+			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
+			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
+			for(int x=j+1;x<columnas;x++) {
+				this->elem(i,x) = this->elem(i,x) - L->elem(i,j)*this->elem(j,x);
+			}
+		}
+	}
+	return L;
 }
