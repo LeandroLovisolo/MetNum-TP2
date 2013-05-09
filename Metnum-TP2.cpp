@@ -9,12 +9,24 @@ Matriz *cargarSonido(char *fileName) {
 	Matriz *mat;
 	ifstream file(fileName);
 	if(file.is_open()) {
-		cout << "Abrio el archivo" << endl;
 		int longitud;
 		file >> longitud;
 		mat = new Matriz(longitud, 1);
 		for(int i=0;i<longitud;i++) {
 			file >> mat->elem(i,0);
+		}
+		file.close();
+	}
+	return mat;
+}
+
+bool grabarSonido(Matriz *mat, char *fileName) {
+	ofstream file(fileName);
+	if(file.is_open()) {
+		for(int i=0;i<mat->fils();i++) {
+			for(int j=0;j<mat->cols();j++) {
+				file << mat->elem(i,j) << " ";
+			}
 		}
 		file.close();
 	}
@@ -45,7 +57,6 @@ int main() {
 	plu.elem(3,1) = 2;
 	plu.elem(3,2) = 3;
 	plu.elem(3,3) = -1;
-
 
 	/*
 	cout << "Matriz Original: " << endl;
