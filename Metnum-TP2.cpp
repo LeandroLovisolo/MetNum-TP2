@@ -36,7 +36,6 @@ bool grabarSonido(Matriz *mat, char *fileName) {
 int main() {
 	char fileName[] = "signals/s64.txt";
 	Matriz *mat = cargarSonido(fileName);
-	delete mat;
 	Matriz plu(4,4);
 	plu.elem(0,0) = 1;
 	plu.elem(0,1) = 1;
@@ -57,6 +56,8 @@ int main() {
 	plu.elem(3,1) = 2;
 	plu.elem(3,2) = 3;
 	plu.elem(3,3) = -1;
+	PruebaMetodo1(mat);
+	delete mat;
 	/*
 	cout << "Matriz Original: " << endl;
 	pair<Matriz*,Matriz*> res = plu.factorizacionPLU();
@@ -64,8 +65,13 @@ int main() {
 	res.first->print();
 	cout << "Matriz L: " << endl;
 	res.second->print();
+	cout << "Matriz U: " << endl;
+	plu.print();
 	cout << "Tratando de re-contruir A = P.L.U" << endl;
 	(*res.first)*(*res.second); //Multiplico P por L
+	cout << "Permuto con P*L" << endl;
+	res.first->print();
+	cout << "Multiplico PL*U" << endl;
 	(*res.first)*plu; //Multiplico PL por U
 	res.first->print(); */
 	/*

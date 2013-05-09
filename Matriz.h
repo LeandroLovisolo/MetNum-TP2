@@ -14,6 +14,7 @@ public:
 	void operator*(Matriz &mat); //Multiplicación matricial
 	void operator*(const double cst); //Multiplicación por escalar
 	void operator+(Matriz &mat); //Suma matricial
+	void operator=(Matriz &mat);
 	const double max(); //Devuelve el máximo elemento de la matriz
 	const double min(); //Devuelve el mínimo elemento de la matriz
 	const double rango(); //Devuelve el rango (Q) = max - min de la señal

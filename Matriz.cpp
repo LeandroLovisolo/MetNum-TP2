@@ -29,6 +29,14 @@ const int Matriz::cols() const {
 	return columnas;
 }
 
+void Matriz::operator=(Matriz &mat) {
+	for(int i=0;i<this->filas;i++) { //Me muevo fila a fila en A
+		for(int j=0;j<this->columnas;j++) { //Me muevo en cada columna de B
+			this->elem(i,j) = mat.elem(i,j);
+		}
+	}
+}
+
 void Matriz::operator*(Matriz &mat) {
 	//A*B donde this = A y B mat
 	double *nuevaMatriz = new double[mat.columnas*this->filas];
@@ -114,6 +122,8 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 		//ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
 		int jp = this->filaConMayorAbsEnCol(j,j);
 		this->intercambiarFilas(jp,j);
+		cout << "Matriz despues de permutar" << endl;
+		this->print();
 		P->intercambiarFilas(jp,j); //Intercambio las filas en la matriz identidad para tener P
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
 			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
@@ -130,7 +140,6 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 Matriz* Matriz::factorizacionLU() {
 	Matriz *L = new Matriz(this->filas, this->columnas);
 	L->transformarEnIdent();
-	this->print();
 	for(int j=0;j<this->columnas-1;j++) { //Me voy moviendo por las columnas
 		for(int i=j+1;i<this->filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
 			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
