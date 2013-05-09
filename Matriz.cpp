@@ -138,3 +138,20 @@ Matriz* Matriz::factorizacionLU() {
 	}
 	return L;
 }
+
+//Ax = b resuelvo sistema (Solo matrices trianguladas)
+Matriz* Matriz::backwardsSubstitution(Matriz *b) {
+	Matriz *x = new Matriz(this->columnas,1);
+	for(int i=this->filas-1;i>=0;i--) { //Voy de la fila de abajo para arriba
+		//Me armo un acumulador del nuevo valor Xi, voy construyendo el X de abajo hacia arriba
+		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
+		double valorX = b->elem(i,0);
+		//Hago Xi = (Bi - sum(Aij, Xj)
+		for(int j=i+1;j<this->columnas;j++) {
+			valorX -= this->elem(i,j) * this->elem(j,0);
+		}
+		//Xi/Aii para terminar
+		x->elem(i,0) = valorX/this->elem(i,i);
+	}
+	return x;
+}
