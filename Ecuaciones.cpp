@@ -56,3 +56,18 @@ Matriz *MatrizM(const int n, const int rango) { //Rango es Q
 	}
 	return Msombrero;
 }
+
+//PSNR para ondas de sonido
+double PSNRSonido(Matriz &matOriginal, Matriz &matPerturbada, const int rango) {
+	//10 * log10( rango^2 / ECM)
+	return 10 * log10( pow(rango, 2) / ECMSonido(matOriginal, matPerturbada) );
+}
+
+//Error cuadrático medio para ondas de sonido
+double ECMSonido(Matriz &matOriginal, Matriz &matPerturbada) {
+	double acum = 0;
+	for(int i=0;i<matOriginal.fils();i++) {
+		acum += pow( matOriginal.elem(i,0) - matPerturbada.elem(i,0) , 2);
+	}
+	return acum/matOriginal.fils();
+}
