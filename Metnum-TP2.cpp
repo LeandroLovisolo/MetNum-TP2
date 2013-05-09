@@ -21,7 +21,29 @@ Matriz *cargarSonido(char *fileName) {
 }
 
 int main() {
-	Matriz *mat = cargarSonido("signals/s64.txt");
-	mat->print();
+	char fileName[] = "signals/s64.txt";
+	Matriz *mat = cargarSonido(fileName);
+	delete mat;
+	Matriz plu(4,4);
+	plu.elem(0,0) = 1;
+	plu.elem(0,1) = 2;
+	plu.elem(0,2) = 3;
+	plu.elem(0,3) = -1;
+
+	plu.elem(1,0) = 1;
+	plu.elem(1,1) = 1;
+	plu.elem(1,2) = -1;
+	plu.elem(1,3) = 2;
+
+	plu.elem(2,0) = 0;
+	plu.elem(2,1) = -1;
+	plu.elem(2,2) = -1;
+	plu.elem(2,3) = 3;
+
+	plu.elem(3,0) = 3;
+	plu.elem(3,1) = 1;
+	plu.elem(3,2) = 2;
+	plu.elem(3,3) = -1;
+	plu.factorizacionPLU();
 	return 0;
 }

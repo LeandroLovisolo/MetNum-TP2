@@ -14,6 +14,7 @@ public:
 	void operator+(Matriz &mat); //Suma matricial
 	void intercambiarFilas(const int i, const int j); //Filas van de 0 a n-1
 	void transformarEnIdent();
+	void factorizacionPLU();
 	const int filaConMayorAbsEnCol(const int col); //Devuelve la fila con el mayor número absoluto en una columna
 	const int fils() const;
 	const int cols() const;
