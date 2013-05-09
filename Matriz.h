@@ -21,6 +21,7 @@ public:
 	const int fils() const;
 	const int cols() const;
 	void intercambiarFilas(const int i, const int j); //Filas van de 0 a n-1
+	void intercambiarFilas(const int i, const int j, const int hasta); 
 	void transformarEnIdent();
 	std::pair <Matriz*,Matriz*> factorizacionPLU();
 	Matriz* factorizacionLU();
