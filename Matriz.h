@@ -14,6 +14,9 @@ public:
 	void operator*(Matriz &mat); //Multiplicación matricial
 	void operator*(const double cst); //Multiplicación por escalar
 	void operator+(Matriz &mat); //Suma matricial
+	const double max(); //Devuelve el máximo elemento de la matriz
+	const double min(); //Devuelve el mínimo elemento de la matriz
+	const double rango(); //Devuelve el rango (Q) = max - min de la señal
 	const int filaConMayorAbsEnCol(const int col, const int desde); //Devuelve la fila con el mayor número absoluto en una columna
 	const int fils() const;
 	const int cols() const;

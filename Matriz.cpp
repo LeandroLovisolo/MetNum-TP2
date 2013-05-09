@@ -155,3 +155,31 @@ Matriz* Matriz::backwardsSubstitution(Matriz *b) {
 	}
 	return x;
 }
+
+const double Matriz::max() {
+	double max = this->elem(0,0);
+	for(int i=0;i<this->filas;i++) {
+		for(int j=0;j<this->columnas;j++) {
+			if(this->elem(i,j) > max) {
+				max = this->elem(i,j);
+			}
+		}
+	}
+	return max;
+}
+
+const double Matriz::min() {
+	double min = this->elem(0,0);
+	for(int i=0;i<this->filas;i++) {
+		for(int j=0;j<this->columnas;j++) {
+			if(this->elem(i,j) < min) {
+				min = this->elem(i,j);
+			}
+		}
+	}
+	return min;
+}
+
+const double Matriz::rango() {
+	return this->max()-this->min();
+}
