@@ -4,6 +4,7 @@
 #include <utility>
 #include <random>
 #include <chrono>
+#include <iomanip>
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
@@ -63,7 +64,7 @@ void Matriz::operator+(Matriz &mat) {
 void Matriz::print(){
 	for(int i=0;i<filas;i++) {
 		for(int j=0;j<columnas;j++) {
-			cout << this->elem(i,j) << " ";
+			cout << this->elem(i,j) << '\t';
 		}
 		cout << endl;
 	}
