@@ -10,7 +10,8 @@ private:
 	int _columnas;
 
 public:
-	Matriz(const int filas, const int columnas); //Crea una matriz de tantas filas y columnas
+	Matriz(const int filas, const int columnas);
+	Matriz(Matriz& otra);
 	~Matriz();
 
 	void operator+(Matriz &mat); //Suma matricial

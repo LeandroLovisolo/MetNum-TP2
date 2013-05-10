@@ -7,9 +7,16 @@
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
-	vectorMatriz = new double[filas*columnas];
-	this->_filas = filas;
-	this->_columnas = columnas;
+	_filas = filas;
+	_columnas = columnas;
+	vectorMatriz = new double[filas * columnas];
+}
+
+Matriz::Matriz(Matriz& otra) {
+	_filas = otra._filas;
+	_columnas = otra._columnas;
+	vectorMatriz = new double[_filas * _columnas];
+	for(int i = 0; i < _filas * _columnas; i++) vectorMatriz[i] = otra.vectorMatriz[i];
 }
 
 Matriz::~Matriz() {
