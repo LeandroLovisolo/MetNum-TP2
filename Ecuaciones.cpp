@@ -1,6 +1,5 @@
 #include <cmath>
 #include <iostream> //Para algunos cout, borrar si no estan
-#include <fstream>
 
 #include "Ecuaciones.h"
 #include "Metodos.h"
@@ -63,24 +62,27 @@ Matriz* MatrizM(const int n, const int rango) { //Rango es Q = max - min de la s
 }
 
 // PSNR para ondas de sonido
-double PSNR(Matriz* matOriginal, Matriz* matPerturbada, const int rangoMax) {
+double PSNR(Matriz& matOriginal, Matriz& matPerturbada, const int rangoMax) {
 	//10 * log10( rango^2 / ECM)
-	return 10 * log10( pow(rangoMax, 2) / ECM(matOriginal, matPerturbada));
+	double ecm = ECM(matOriginal, matPerturbada);
+	cout << "error cuadratico: " << ecm << endl;
+
+	return 10 * log10( pow(rangoMax, 2) / ecm);
 }
 
 //Error cuadrático medio para ondas de sonido
-double ECM(Matriz* matOriginal, Matriz* matPerturbada) {
+double ECM(Matriz& matOriginal, Matriz& matPerturbada) {
 	double acum = 0;
-	for(int i = 0; i < matOriginal->filas(); i++) {
-		for(int j = 0; j < matOriginal->columnas(); j++) {
-			acum += pow(matOriginal->elem(i, j) - matPerturbada->elem(i, j) , 2);
+	for(int i = 0; i < matOriginal.filas(); i++) {
+		for(int j = 0; j < matOriginal.columnas(); j++) {
+			acum += pow(matOriginal.elem(i, j) - matPerturbada.elem(i, j) , 2);
 		}
 	}
-	return acum / (matOriginal->filas() * matOriginal->columnas());
+	return acum / (matOriginal.filas() * matOriginal.columnas());
 }
 
 Matriz* aplicarDCT(Matriz& x) {
-	Matriz* M = MatrizM(x.filas(), x.max());
+	Matriz* M = MatrizM(x.filas(), x.rango());
 	Matriz* resultado;
 	if(x.columnas() == 1) {
 		resultado = (*M) * x;
@@ -114,15 +116,3 @@ Matriz* revertirDCT(Matriz& x, const int rango) {
 //	}
 }
 
-bool grabarSonido(Matriz* mat, char* fileName) {
-	ofstream file(fileName);
-	if(file.is_open()) {
-		for(int i = 0; i < mat->filas(); i++) {
-			for(int j = 0; j < mat->columnas(); j++) {
-				file << mat->elem(i,j) << " ";
-			}
-		}
-		file.close();
-	}
-	return mat;
-}

@@ -3,6 +3,8 @@
 #include <utility>
 #include "Matriz.h"
 #include "Ecuaciones.h"
+#include "Metodos.h"
+
 using namespace std;
 
 Matriz *cargarSonido(char *fileName) {
@@ -35,12 +37,13 @@ int main() {
 	cout << "Matriz d:" << endl;
 	d->print();
 
-	Matriz* x0 = revertirDCT(*d, x.max());
+	Matriz* x0 = revertirDCT(*d, x.rango());
 
 	cout << "Matriz x0:" << endl;
 	x0->print();
 
-
+	Matriz *sonido = cargarSonido((char*) "signals/dopp512.txt");
+	PruebaMetodo1(*sonido);
 	//Matriz A = *MatrizM(x.filas(), x.rango());
 
 	

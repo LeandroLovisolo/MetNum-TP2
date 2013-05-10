@@ -11,7 +11,7 @@ Matriz* MatrizMsombrero(const int n);
 Matriz* aplicarDCT(Matriz& x);
 Matriz* revertirDCT(Matriz& x, const int rango);
 
-double PSNR(Matriz* matOriginal, Matriz* matPerturbada, const int rangoMax);
-double ECM(Matriz* matOriginal, Matriz* matPerturbada);
+double PSNR(Matriz& matOriginal, Matriz& matPerturbada, const int rangoMax);
+double ECM(Matriz& matOriginal, Matriz& matPerturbada);
 
 #endif /* ECUACIONES_H_ */
