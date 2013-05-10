@@ -35,14 +35,6 @@ int Matriz::columnas() const {
 	return _columnas;
 }
 
-void Matriz::operator=(Matriz &mat) {
-	for(int i=0;i<this->_filas;i++) { //Me muevo fila a fila en A
-		for(int j=0;j<this->_columnas;j++) { //Me muevo en cada columna de B
-			this->elem(i,j) = mat.elem(i,j);
-		}
-	}
-}
-
 void Matriz::operator*(Matriz &mat) {
 	//A*B donde this = A y B mat
 	double *nuevaMatriz = new double[mat._columnas*this->_filas];

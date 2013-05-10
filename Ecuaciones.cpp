@@ -97,13 +97,16 @@ void PruebaMetodo1(Matriz *Xoriginal) {
 	//Creo 'y' y x
 	//cout << "Matriz original: " << endl;
 	//Xoriginal->print();
-	Matriz XconRuido = Matriz(Xoriginal->filas(),Xoriginal->columnas());
+
+	//Matriz XconRuido = Matriz(Xoriginal->filas(),Xoriginal->columnas());
+	Matriz XconRuido(*Xoriginal);
+
 	//Uso como rango max, pongo en y y la matriz M para hacer y = m*x'
 	Matriz *y = MatrizM(Xoriginal->filas(), Xoriginal->max());
 	XconRuido = (*Xoriginal); //La copio de la original
 	//Agrego ruido a x (señal original)
 	agregarRuidoAditivo(XconRuido); //Le agrego ruido
-	grabarSonido(&XconRuido, "dopp512ConRuido.txt");
+	grabarSonido(&XconRuido, (char*) "dopp512ConRuido.txt");
 	cout << "Ruido agregado PSNR: " << PSNR(Xoriginal, &XconRuido, Xoriginal->max()) << endl;
 	(*y)*XconRuido; // y = m*x
 	//Modifico y para intentar remover el ruido
@@ -124,7 +127,7 @@ void PruebaMetodo1(Matriz *Xoriginal) {
 	Matriz *j = pl.second->forwardSubstitution(pl.first); //Lj = Py
 	//Hago Ux = j
 	Matriz *XSinRuido = u->backwardsSubstitution(j);
-	grabarSonido(XSinRuido, "dopp512SinRuido.txt");
+	grabarSonido(XSinRuido, (char*) "dopp512SinRuido.txt");
 	//cout << "Matriz devuelta" << endl;
 	//XSinRuido->print();
 	cout << "Resultado PSNR: " << PSNR(Xoriginal, XSinRuido, Xoriginal->max()) << endl;

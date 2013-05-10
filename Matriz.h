@@ -17,7 +17,6 @@ public:
 	void operator+(Matriz &mat); //Suma matricial
 	void operator*(Matriz &mat); //Multiplicación matricial
 	void operator*(const double cst); //Multiplicación por escalar
-	void operator=(Matriz &mat);
 	double &elem(const int fila, const int columna); //Me devuelve el elemento en las coordenadas x, y; x < cols , y < filas
 
 	double max(); //Devuelve el máximo elemento de la matriz
