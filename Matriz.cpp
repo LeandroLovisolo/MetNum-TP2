@@ -181,7 +181,7 @@ Matriz* Matriz::forwardSubstitution(Matriz *b) {
 		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
 		double valorX = b->elem(i,0);
 		//Hago Xi = (Bi - sum(Aij, Xj)
-		for(int j=0;j<i-1;j++) {
+		for(int j=0;j<i;j++) {
 			valorX -= this->elem(i,j) * x->elem(j,0);
 		}
 		//Xi/Aii para terminar
@@ -230,7 +230,7 @@ void Matriz::eliminarRuidoMetodo1() {
 void Matriz::agregarRuidoAditivo() {
 	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 	default_random_engine generator(seed);
-  	normal_distribution<double> distribution(0.0,0.2);
+  	normal_distribution<double> distribution(7.0,30);
 	for(int i=0;i<this->filas;i++) {
 		for(int j=0;j<this->columnas;j++) {
 			//cout << "Que larga: " << distribution(generator) << endl;

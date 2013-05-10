@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Matriz.h"
 #include <iostream> //Para algunos cout, borrar si no estan
+#include <fstream>
 using namespace std;
 //M_PI 3.14159265358979323846 definido en math
 Matriz *MatrizG(const int n) {
@@ -76,32 +77,53 @@ double ECM(Matriz *matOriginal, Matriz *matPerturbada) {
 	return acum/(matOriginal->fils()*matOriginal->cols());
 }
 
+bool grabarSonido(Matriz *mat, char *fileName) {
+	ofstream file(fileName);
+	if(file.is_open()) {
+		for(int i=0;i<mat->fils();i++) {
+			for(int j=0;j<mat->cols();j++) {
+				file << mat->elem(i,j) << " ";
+			}
+		}
+		file.close();
+	}
+	return mat;
+}
+
 void PruebaMetodo1(Matriz *Xoriginal) {
 	//Creo 'y' y x
-	cout << "Matriz original" << endl;
-	Xoriginal->print();
+	//cout << "Matriz original: " << endl;
+	//Xoriginal->print();
 	Matriz XconRuido = Matriz(Xoriginal->fils(),Xoriginal->cols());
 	//Uso como rango max, pongo en y y la matriz M para hacer y = m*x'
 	Matriz *y = MatrizM(Xoriginal->fils(), Xoriginal->max());
 	XconRuido = (*Xoriginal); //La copio de la original
 	//Agrego ruido a x (señal original)
-	//XconRuido.agregarRuidoAditivo(); //Le agrego ruido
-	//cout << "Ruido agregado PSNR: " << PSNR(Xoriginal, &XconRuido, Xoriginal->max()) << endl;
+	XconRuido.agregarRuidoAditivo(); //Le agrego ruido
+	grabarSonido(&XconRuido, "dopp512ConRuido.txt");
+	cout << "Ruido agregado PSNR: " << PSNR(Xoriginal, &XconRuido, Xoriginal->max()) << endl;
 	(*y)*XconRuido; // y = m*x
 	//Modifico y para intentar remover el ruido
-	//y->eliminarRuidoMetodo1();
+	y->eliminarRuidoMetodo1();
 	//Vuelvo para atrás resolviendo M * Xreconstruido =y'
+	//cout << "y = m*x" << endl;
+	//y->print();
 	Matriz *u = MatrizM(Xoriginal->fils(), Xoriginal->max());
 	pair<Matriz*, Matriz*> pl = u->factorizacionPLU();
-	cout << "Matriz L: " << endl;
-	pl.second->print();
+	//cout << "Matriz P: " << endl;
+	//pl.first->print();
+	//cout << "Matriz L: " << endl;
+	//pl.second->print();
 	//Hago Lj = Py
 	(*pl.first)*(*y); //Py
+	//cout << "P*y" << endl;
+	//pl.first->print();
 	Matriz *j = pl.second->forwardSubstitution(pl.first); //Lj = Py
 	//Hago Ux = j
 	Matriz *XSinRuido = u->backwardsSubstitution(j);
-	cout << "Matriz devuelta" << endl;
-	XSinRuido->print();
+	grabarSonido(XSinRuido, "dopp512SinRuido.txt");
+	//cout << "Matriz devuelta" << endl;
+	//XSinRuido->print();
 	cout << "Resultado PSNR: " << PSNR(Xoriginal, XSinRuido, Xoriginal->max()) << endl;
 	delete y;
 	delete u;
