@@ -20,11 +20,11 @@ double &Matriz::elem(const int fila, const int columna) {
 	return vectorMatriz[fila*this->_columnas + columna];
 }
 
-const int Matriz::filas() const {
+int Matriz::filas() const {
 	return _filas;
 }
 
-const int Matriz::columnas() const {
+int Matriz::columnas() const {
 	return _columnas;
 }
 
@@ -90,7 +90,7 @@ void Matriz::intercambiarFilas(const int i, const int j, const int hasta) {
 	}
 }
 
-const int Matriz::filaConMayorAbsEnCol(const int col, const int desde) {
+int Matriz::filaConMayorAbsEnCol(const int col, const int desde) {
 	int filaMayor = desde;
 	int mayor = this->elem(desde,col);
 	for(int y=desde+1;y<_filas;y++) {
@@ -173,7 +173,7 @@ Matriz* Matriz::forwardSubstitution(Matriz *b) {
 	return x;
 }
 
-const double Matriz::max() {
+double Matriz::max() {
 	double max = this->elem(0,0);
 	for(int i=0;i<this->_filas;i++) {
 		for(int j=0;j<this->_columnas;j++) {
@@ -185,7 +185,7 @@ const double Matriz::max() {
 	return max;
 }
 
-const double Matriz::min() {
+double Matriz::min() {
 	double min = this->elem(0,0);
 	for(int i=0;i<this->_filas;i++) {
 		for(int j=0;j<this->_columnas;j++) {
@@ -197,6 +197,6 @@ const double Matriz::min() {
 	return min;
 }
 
-const double Matriz::rango() {
+double Matriz::rango() {
 	return this->max()-this->min();
 }
