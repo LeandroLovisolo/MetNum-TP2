@@ -2,7 +2,6 @@
 #define MATRIZ_H_
 
 #include <tuple>
-#include <utility>
 
 class Matriz {
 private:
@@ -30,14 +29,13 @@ public:
 	Matriz* operator*(double k);
 
 	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
-	Matriz* backwardsSubstitution(Matriz *b);
+	Matriz* backwardSubstitution(Matriz *b);
 	Matriz* forwardSubstitution(Matriz *b);
 	void print();
 
 private:
 	void intercambiarFilas(const int i, const int j);
 	void intercambiarFilas(const int i, const int j, const int hasta);
-	void transformarEnIdent();
 	int filaConMayorAbsEnCol(const int col, const int desde);
 };
 

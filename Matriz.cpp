@@ -1,9 +1,8 @@
-#include "Matriz.h"
-#include <iostream>
 #include <cmath>
-#include <utility>
+#include <iostream>
 
-#include <iomanip>
+#include "Matriz.h"
+
 using namespace std;
 
 Matriz::Matriz(const int filas, const int columnas) {
@@ -116,7 +115,7 @@ tuple <Matriz*, Matriz*, Matriz*> Matriz::factorizacionPLU() {
 		// Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
 		// ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
 
-		int jp = U->filaConMayorAbsEnCol(j,j);
+		int jp = U->filaConMayorAbsEnCol(j, j);
 		P->intercambiarFilas(jp, j);
 		L->intercambiarFilas(jp, j, j);
 		U->intercambiarFilas(jp, j);
@@ -132,38 +131,42 @@ tuple <Matriz*, Matriz*, Matriz*> Matriz::factorizacionPLU() {
 	return make_tuple(P, L, U);
 }
 
-//Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
-Matriz* Matriz::backwardsSubstitution(Matriz *b) {
-	Matriz *x = new Matriz(this->_columnas,1);
-	for(int i=this->_filas-1;i>=0;i--) { //Voy de la fila de abajo para arriba
-		//Me armo un acumulador del nuevo valor Xi, voy construyendo el X de abajo hacia arriba
-		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
-		double valorX = b->elem(i,0);
-		//Hago Xi = (Bi - sum(Aij, Xj)
-		//Recorro las columnas de la posición+1 en que tengo mi incognita
-		for(int j=i+1;j<this->_columnas;j++) {
-			valorX -= this->elem(i,j) * x->elem(j,0);
+Matriz* Matriz::backwardSubstitution(Matriz *b) {
+	Matriz *x = new Matriz(_columnas, 1);
+
+	// Voy de la fila de abajo para arriba
+	for(int i = _filas - 1; i >= 0; i--) {
+		// Me armo un acumulador del nuevo valor Xi, voy construyendo el X de abajo hacia arriba
+		// Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
+		double valorX = b->elem(i, 0);
+
+		// Hago Xi = (Bi - sum(Aij, Xj)
+		// Recorro las columnas de la posición + 1 en que tengo mi incognita
+		for(int j = i + 1; j < _columnas; j++) {
+			valorX -= elem(i,j) * x->elem(j,0);
 		}
-		//Xi/Aii para terminar
-		x->elem(i,0) = valorX/this->elem(i,i);
+
+		// Xi/Aii para terminar
+		x->elem(i,0) = valorX / elem(i, i);
 	}
 	return x;
 }
 
-//Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
 Matriz* Matriz::forwardSubstitution(Matriz *b) {
 	Matriz *x = new Matriz(this->_columnas,1);
-	//Recorro las columnas de la posición 0 hasta la posición-1 en que tengo mi incognita
-	for(int i=0;i<this->_filas;i++) { //Recorro filas de arriba a abajo
-		//Me armo un acumulador del nuevo valor Xi, voy construyendo el X de arriba hacia abajo
-		//Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
-		double valorX = b->elem(i,0);
-		//Hago Xi = (Bi - sum(Aij, Xj)
-		for(int j=0;j<i;j++) {
-			valorX -= this->elem(i,j) * x->elem(j,0);
+
+	for(int i = 0; i < _filas; i++) {
+		// Me armo un acumulador del nuevo valor Xi, voy construyendo el X de arriba hacia abajo
+		// Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
+		double valorX = b->elem(i, 0);
+
+		// Hago Xi = (Bi - sum(Aij, Xj)
+		for(int j = 0; j < i; j++) {
+			valorX -= elem(i, j) * x->elem(j, 0);
 		}
+
 		//Xi/Aii para terminar
-		x->elem(i,0) = valorX/this->elem(i,i);
+		x->elem(i, 0) = valorX / elem(i, i);
 	}
 	return x;
 }
