@@ -222,7 +222,7 @@ void Matriz::eliminarRuidoMetodo1() {
 	double umbral = (this->max() - this->min())/2;
 	for(int i=0;i<this->filas;i++) {
 		for(int j=0;j<this->columnas;j++) {
-			if(this->elem(i,j) < umbral) this->elem(i,j) = 0;
+			if(abs(this->elem(i,j)) < umbral) this->elem(i,j) = 0;
 		}
 	}
 }
