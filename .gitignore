@@ -31,5 +31,6 @@
 *.xdy
 *.tdo
 *.o
+*.txt
 Makefile~
 metnum
