@@ -101,12 +101,9 @@ Matriz *revertirDCT(Matriz *x, const int rango) {
 		tuple<Matriz*, Matriz*, Matriz*> plu = M->factorizacionPLU();
 		//Hago Ly = Px
 		Matriz *Px = (*get<0>(plu))*(*x);
-		Px->print();
 		Matriz *y = get<1>(plu)->forwardSubstitution(Px);
-		y->print();
 		//Hago Uj = y
 		Matriz *j = get<2>(plu)->backwardSubstitution(y);
-		j->print();
 		delete y;
 		delete Px;
 		delete M;
