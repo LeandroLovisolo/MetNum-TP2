@@ -30,8 +30,8 @@ public:
 	Matriz* operator*(double k);
 
 	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
-	Matriz* backwardSubstitution(Matriz *b);
-	Matriz* forwardSubstitution(Matriz *b);
+	Matriz* backwardSubstitution(Matriz &b);
+	Matriz* forwardSubstitution(Matriz &b);
 	void print();
 
 private:

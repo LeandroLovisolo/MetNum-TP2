@@ -34,3 +34,11 @@
 *.txt
 Makefile~
 metnum
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Eclipse
+.project
+.cproject
