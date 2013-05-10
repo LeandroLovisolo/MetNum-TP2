@@ -14,10 +14,10 @@ public:
 	Matriz(Matriz& otra);
 	~Matriz();
 
-	void operator+(Matriz &mat); //Suma matricial
-	void operator*(Matriz &mat); //Multiplicación matricial
-	void operator*(const double cst); //Multiplicación por escalar
-	double &elem(const int fila, const int columna); //Me devuelve el elemento en las coordenadas x, y; x < cols , y < filas
+	void operator+(Matriz &mat);
+	Matriz* operator*(Matriz &m);
+	void operator*(const double cst);
+	double &elem(const int fila, const int columna);
 
 	double max(); //Devuelve el máximo elemento de la matriz
 	double min(); //Devuelve el mínimo elemento de la matriz

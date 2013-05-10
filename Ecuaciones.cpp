@@ -94,6 +94,7 @@ bool grabarSonido(Matriz *mat, char *fileName) {
 }
 
 void PruebaMetodo1(Matriz *Xoriginal) {
+	/*
 	//Creo 'y' y x
 	//cout << "Matriz original: " << endl;
 	//Xoriginal->print();
@@ -137,4 +138,5 @@ void PruebaMetodo1(Matriz *Xoriginal) {
 	delete pl.second;
 	delete j;
 	delete XSinRuido;
+	*/
 }

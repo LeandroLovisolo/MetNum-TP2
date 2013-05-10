@@ -24,7 +24,7 @@ Matriz::~Matriz() {
 }
 
 double &Matriz::elem(const int fila, const int columna) {
-	return vectorMatriz[fila*this->_columnas + columna];
+	return vectorMatriz[fila * _columnas + columna];
 }
 
 int Matriz::filas() const {
@@ -35,20 +35,17 @@ int Matriz::columnas() const {
 	return _columnas;
 }
 
-void Matriz::operator*(Matriz &mat) {
-	//A*B donde this = A y B mat
-	double *nuevaMatriz = new double[mat._columnas*this->_filas];
-	for(int i=0;i<_filas;i++) { //Me muevo fila a fila en A
-		for(int h=0;h<mat._columnas;h++) { //Me muevo en cada columna de B
-			nuevaMatriz[i*mat._columnas + h] = 0;
-			for(int j=0;j<_columnas;j++) { //Me muevo entre cada fila de B = columnas A, multiplico y sumo
-				nuevaMatriz[i*mat._columnas + h] += this->elem(i,j)*mat.elem(j,h);
+Matriz* Matriz::operator*(Matriz &m) {
+	Matriz* producto = new Matriz(_filas, m._columnas);
+	for(int i = 0; i < _filas; i++) {
+		for(int j = 0; j < m._columnas; j++) {
+			producto->elem(i, j) = 0;
+			for(int k = 0; k < _columnas; k++) {
+				producto->elem(i, j) += elem(i, k) * m.elem(k, j);
 			}
 		}
 	}
-	this->_columnas = mat._columnas;
-	delete this->vectorMatriz;
-	vectorMatriz = nuevaMatriz;
+	return producto;
 }
 
 void Matriz::operator*(const double cst) {
