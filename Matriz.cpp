@@ -40,6 +40,12 @@ int Matriz::columnas() const {
 	return _columnas;
 }
 
+void Matriz::transponer(){
+	int temp = _filas;
+	_filas = _columnas;
+	_columnas = temp;
+}
+
 double &Matriz::elem(const int fila, const int columna) {
 	return vectorMatriz[fila * _columnas + columna];
 }

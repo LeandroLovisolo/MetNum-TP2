@@ -18,6 +18,7 @@ public:
 
 	int filas() const;
 	int columnas() const;
+	void transponer();
 	double &elem(const int fila, const int columna);
 
 	double max(); // Máximo elemento de la matriz

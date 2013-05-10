@@ -31,14 +31,15 @@ double C(const int k, const int n) {
 Matriz *MatrizT(const int n) {
 	Matriz *st = MatrizSt(n);
 	Matriz *g = MatrizG(n);
-	(*g)*(*st);
-	for(int j=0;j<g->columnas();j++) {
-		for(int i=0;i<g->filas();i++) {
-			g->elem(i,j) = cos(g->elem(i,j)); //Aplico coseno a todos los elementos
+	Matriz *t = (*g)*(*st);
+	for(int j=0;j<t->columnas();j++) {
+		for(int i=0;i<t->filas();i++) {
+			t->elem(i,j) = cos(t->elem(i,j)); //Aplico coseno a todos los elementos
 		}
 	}
 	delete st;
-	return g;
+	delete g;
+	return t;
 }
 
 Matriz *MatrizMsombrero(const int n) {
@@ -76,6 +77,44 @@ double ECM(Matriz *matOriginal, Matriz *matPerturbada) {
 		}
 	}
 	return acum/(matOriginal->filas()*matOriginal->columnas());
+}
+
+Matriz *aplicarDCT(Matriz *x) {
+	Matriz *M = MatrizM(x->filas(), x->max());
+	Matriz *resultado;
+	if(x->columnas() == 1) {
+		resultado = (*M)*(*x);
+	}
+	else {
+		Matriz *temp = (*M)*(*x);
+		M->transponer();
+		resultado = (*temp)*(*x);
+		delete temp;
+	}
+	//delete M;
+	return resultado;
+}
+
+Matriz *revertirDCT(Matriz *x) {
+	Matriz *M = MatrizM(x->filas(), x->max());
+//	if(x->columnas() == 1) {
+		tuple<Matriz*, Matriz*, Matriz*> plu = M->factorizacionPLU();
+		//Hago Ly = Px
+		get<0>(plu)->print();
+		get<1>(plu)->print();
+		get<2>(plu)->print();
+		Matriz *Px = (*get<0>(plu))*(*x);
+		Matriz *y = get<0>(plu)->forwardSubstitution(Px);
+		//Hago Uj = y
+		Matriz *j = get<2>(plu)->backwardSubstitution(y);
+		//delete y;
+		//delete Px;
+		//delete M;
+		//delete get<0>(plu);
+		//delete get<1>(plu);
+		//delete get<2>(plu);
+		return j;
+//	}
 }
 
 bool grabarSonido(Matriz *mat, char *fileName) {

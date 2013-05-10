@@ -51,15 +51,20 @@ int main() {
 	b.elem(3,0) = 4;
 
 /* Matriz simple para probar en PruebaMetodo1, sacandole
-	el ruido y su eliminacion, que se puede convertir y volver
+	el ruido y su eliminacion, que se puede convertir y volver */
 	Matriz sonidoTest(4,1);
 	sonidoTest.elem(0,0) = 1;
 	sonidoTest.elem(1,0) = 2;
 	sonidoTest.elem(2,0) = 3;
 	sonidoTest.elem(3,0) = 4;
-*/	
-	PruebaMetodo1(mat);
-	
+	Matriz *DCT = aplicarDCT(&sonidoTest);
+	DCT->print();
+	cout << "Devuelta" << endl;
+	Matriz *devuelta = revertirDCT(DCT);
+	devuelta->print();
+	//delete DCT;
+	//delete devuelta;
+	//PruebaMetodo1(mat);
 	delete mat;
 	
 	/*
