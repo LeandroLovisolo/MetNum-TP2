@@ -25,3 +25,52 @@ void eliminarRuidoMetodo1(Matriz &m) {
 		}
 	}
 }
+
+void PruebaMetodo1(Matriz *Xoriginal) {
+	/*
+	//Creo 'y' y x
+	//cout << "Matriz original: " << endl;
+	//Xoriginal->print();
+
+	//Matriz XconRuido = Matriz(Xoriginal->filas(),Xoriginal->columnas());
+	Matriz XconRuido(*Xoriginal);
+
+	//Uso como rango max, pongo en y y la matriz M para hacer y = m*x'
+	Matriz *y = MatrizM(Xoriginal->filas(), Xoriginal->max());
+	XconRuido = (*Xoriginal); //La copio de la original
+	//Agrego ruido a x (señal original)
+	agregarRuidoAditivo(XconRuido); //Le agrego ruido
+	grabarSonido(&XconRuido, (char*) "dopp512ConRuido.txt");
+	cout << "Ruido agregado PSNR: " << PSNR(Xoriginal, &XconRuido, Xoriginal->max()) << endl;
+	(*y)*XconRuido; // y = m*x
+	//Modifico y para intentar remover el ruido
+	eliminarRuidoMetodo1(*y);
+	//Vuelvo para atrás resolviendo M * Xreconstruido =y'
+	//cout << "y = m*x" << endl;
+	//y->print();
+	Matriz *u = MatrizM(Xoriginal->filas(), Xoriginal->max());
+	pair<Matriz*, Matriz*> pl = u->factorizacionPLU();
+	//cout << "Matriz P: " << endl;
+	//pl.first->print();
+	//cout << "Matriz L: " << endl;
+	//pl.second->print();
+	//Hago Lj = Py
+	(*pl.first)*(*y); //Py
+	//cout << "P*y" << endl;
+	//pl.first->print();
+	Matriz *j = pl.second->forwardSubstitution(pl.first); //Lj = Py
+	//Hago Ux = j
+	Matriz *XSinRuido = u->backwardsSubstitution(j);
+	grabarSonido(XSinRuido, (char*) "dopp512SinRuido.txt");
+	//cout << "Matriz devuelta" << endl;
+	//XSinRuido->print();
+	cout << "Resultado PSNR: " << PSNR(Xoriginal, XSinRuido, Xoriginal->max()) << endl;
+	delete y;
+	delete u;
+	delete pl.first;
+	delete pl.second;
+	delete j;
+	delete XSinRuido;
+	*/
+}
+
