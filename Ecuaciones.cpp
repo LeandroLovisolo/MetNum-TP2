@@ -91,28 +91,28 @@ Matriz *aplicarDCT(Matriz *x) {
 		resultado = (*temp)*(*x);
 		delete temp;
 	}
-	//delete M;
+	delete M;
 	return resultado;
 }
 
-Matriz *revertirDCT(Matriz *x) {
-	Matriz *M = MatrizM(x->filas(), x->max());
+Matriz *revertirDCT(Matriz *x, const int rango) {
+	Matriz *M = MatrizM(x->filas(), rango);
 //	if(x->columnas() == 1) {
 		tuple<Matriz*, Matriz*, Matriz*> plu = M->factorizacionPLU();
 		//Hago Ly = Px
-		get<0>(plu)->print();
-		get<1>(plu)->print();
-		get<2>(plu)->print();
 		Matriz *Px = (*get<0>(plu))*(*x);
-		Matriz *y = get<0>(plu)->forwardSubstitution(Px);
+		Px->print();
+		Matriz *y = get<1>(plu)->forwardSubstitution(Px);
+		y->print();
 		//Hago Uj = y
 		Matriz *j = get<2>(plu)->backwardSubstitution(y);
-		//delete y;
-		//delete Px;
-		//delete M;
-		//delete get<0>(plu);
-		//delete get<1>(plu);
-		//delete get<2>(plu);
+		j->print();
+		delete y;
+		delete Px;
+		delete M;
+		delete get<0>(plu);
+		delete get<1>(plu);
+		delete get<2>(plu);
 		return j;
 //	}
 }
