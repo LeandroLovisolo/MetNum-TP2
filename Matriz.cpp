@@ -36,11 +36,11 @@ double &Matriz::elem(const int fila, const int columna) {
 }
 
 double Matriz::max() {
-	double max = this->elem(0,0);
-	for(int i=0;i<this->_filas;i++) {
-		for(int j=0;j<this->_columnas;j++) {
-			if(this->elem(i,j) > max) {
-				max = this->elem(i,j);
+	double max = elem(0, 0);
+	for(int i = 0; i < _filas; i++) {
+		for(int j = 0; j < _columnas; j++) {
+			if(elem(i ,j) > max) {
+				max = elem(i,j);
 			}
 		}
 	}
@@ -48,11 +48,11 @@ double Matriz::max() {
 }
 
 double Matriz::min() {
-	double min = this->elem(0,0);
-	for(int i=0;i<this->_filas;i++) {
-		for(int j=0;j<this->_columnas;j++) {
-			if(this->elem(i,j) < min) {
-				min = this->elem(i,j);
+	double min = elem(0, 0);
+	for(int i = 0; i < _filas; i++) {
+		for(int j = 0; j < _columnas; j++) {
+			if(elem(i, j) < min) {
+				min = elem(i, j);
 			}
 		}
 	}
@@ -60,7 +60,7 @@ double Matriz::min() {
 }
 
 double Matriz::rango() {
-	return this->max()-this->min();
+	return max() - min();
 }
 
 Matriz* Matriz::operator+(Matriz &m) {
@@ -160,9 +160,9 @@ Matriz* Matriz::forwardSubstitution(Matriz *b) {
 }
 
 void Matriz::print(){
-	for(int i=0;i<_filas;i++) {
-		for(int j=0;j<_columnas;j++) {
-			cout << this->elem(i,j) << '\t';
+	for(int i = 0; i < _filas; i++) {
+		for(int j = 0; j < _columnas; j++) {
+			cout << elem(i,j) << '\t';
 		}
 		cout << endl;
 	}
@@ -174,27 +174,27 @@ void Matriz::intercambiarFilas(const int i, const int j) {
 
 void Matriz::intercambiarFilas(const int i, const int j, const int hasta) {
 	if(i == j) return;
-	for(int x=0;x<hasta;x++) {
-		double elemento = this->elem(i,x);
-		this->elem(i,x) = this->elem(j,x);
-		this->elem(j,x) = elemento;
+	for(int x = 0; x < hasta; x++) {
+		double elemento = elem(i, x);
+		elem(i,x) = elem(j,x);
+		elem(j,x) = elemento;
 	}
 }
 
 void Matriz::transformarEnIdent() {
-	for(int y=0;y<_filas;y++) {
-		for(int x=0;x<_columnas;x++) {
-			this->elem(y,x) = (y == x ? 1 : 0);
+	for(int y = 0; y < _filas; y++) {
+		for(int x = 0; x < _columnas; x++) {
+			elem(y, x) = (y == x ? 1 : 0);
 		}
 	}
 }
 
 int Matriz::filaConMayorAbsEnCol(const int col, const int desde) {
 	int filaMayor = desde;
-	int mayor = this->elem(desde,col);
-	for(int y=desde+1;y<_filas;y++) {
-		if(abs(this->elem(y,col)) > mayor) {
-			mayor = abs(this->elem(y,col));
+	int mayor = elem(desde, col);
+	for(int y = desde + 1; y < _filas; y++) {
+		if(abs(elem(y, col)) > mayor) {
+			mayor = abs(elem(y, col));
 			filaMayor = y;
 		}
 	}
