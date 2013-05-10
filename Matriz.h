@@ -14,30 +14,28 @@ public:
 	Matriz(Matriz& otra);
 	~Matriz();
 
-	void operator+(Matriz &mat);
-	Matriz* operator*(Matriz &m);
-	Matriz* operator*(double k);
-	double &elem(const int fila, const int columna);
-
-	double max(); //Devuelve el máximo elemento de la matriz
-	double min(); //Devuelve el mínimo elemento de la matriz
-	double rango(); //Devuelve el rango (Q) = max - min de la señal
 	int filas() const;
 	int columnas() const;
+	double &elem(const int fila, const int columna);
 
-	std::pair <Matriz*,Matriz*> factorizacionPLU();
+	double max(); // Máximo elemento de la matriz
+	double min(); // Mínimo elemento de la matriz
+	double rango(); // max() - min()
+
+	Matriz* operator+(Matriz &m);
+	Matriz* operator*(Matriz &m);
+	Matriz* operator*(double k);
+
+	std::pair <Matriz*, Matriz*> factorizacionPLU();
 	Matriz* backwardsSubstitution(Matriz *b);
 	Matriz* forwardSubstitution(Matriz *b);
 	void print();
 
 private:
-	void intercambiarFilas(const int i, const int j); //Filas van de 0 a n-1
+	void intercambiarFilas(const int i, const int j);
 	void intercambiarFilas(const int i, const int j, const int hasta);
 	void transformarEnIdent();
-	int filaConMayorAbsEnCol(const int col, const int desde); //Devuelve la fila con el mayor número absoluto en una columna
-
+	int filaConMayorAbsEnCol(const int col, const int desde);
 };
-
-
 
 #endif
