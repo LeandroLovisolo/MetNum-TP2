@@ -43,7 +43,7 @@ int main() {
 
 	//Matriz A = *MatrizM(x.filas(), x.rango());
 
-	/*
+	
 	Matriz A(4,4);
 	A.elem(0,0) = 1;
 	A.elem(0,1) = 1;
@@ -64,8 +64,11 @@ int main() {
 	A.elem(3,1) = 2;
 	A.elem(3,2) = 3;
 	A.elem(3,3) = -1;
-	*/
-
+	cout << "Matriz A" << endl;
+	A.print();
+	cout << "Submatriz " << endl;
+	Matriz *sub = A.submatriz(0,1,0,1);
+	sub->print();
 	/*
 	cout << "Matriz A:" << endl;
 	A.print();

@@ -32,6 +32,7 @@ public:
 	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
 	Matriz* backwardSubstitution(Matriz &b);
 	Matriz* forwardSubstitution(Matriz &b);
+	Matriz* submatriz(const int desdeFil, const int hastaFil, const int desdeCol, const int hastaCol);
 	void print();
 
 private:

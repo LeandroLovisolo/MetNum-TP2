@@ -32,6 +32,16 @@ Matriz* Matriz::identidad(int n) {
 	return m;
 }
 
+Matriz* Matriz::submatriz(const int desdeFil, const int hastaFil, const int desdeCol, const int hastaCol) {
+	Matriz *submatriz = new Matriz((hastaFil - desdeFil + 1), (hastaCol - desdeCol + 1));
+	for(int i = desdeFil; i <= hastaFil; i++) {
+		for(int j = desdeCol; j <= hastaCol; j++) {
+			submatriz->elem(i - desdeFil, j - desdeCol) = elem(i,j);
+		}
+	}
+	return submatriz;
+}
+
 int Matriz::filas() const {
 	return _filas;
 }
