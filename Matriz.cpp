@@ -40,6 +40,12 @@ int Matriz::columnas() const {
 	return _columnas;
 }
 
+void Matriz::transponer(){
+	int temp = _filas;
+	_filas = _columnas;
+	_columnas = temp;
+}
+
 double &Matriz::elem(const int fila, const int columna) {
 	return vectorMatriz[fila * _columnas + columna];
 }
@@ -131,14 +137,14 @@ tuple <Matriz*, Matriz*, Matriz*> Matriz::factorizacionPLU() {
 	return make_tuple(P, L, U);
 }
 
-Matriz* Matriz::backwardSubstitution(Matriz *b) {
+Matriz* Matriz::backwardSubstitution(Matriz &b) {
 	Matriz *x = new Matriz(_columnas, 1);
 
 	// Voy de la fila de abajo para arriba
 	for(int i = _filas - 1; i >= 0; i--) {
 		// Me armo un acumulador del nuevo valor Xi, voy construyendo el X de abajo hacia arriba
 		// Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
-		double valorX = b->elem(i, 0);
+		double valorX = b.elem(i, 0);
 
 		// Hago Xi = (Bi - sum(Aij, Xj)
 		// Recorro las columnas de la posición + 1 en que tengo mi incognita
@@ -152,13 +158,13 @@ Matriz* Matriz::backwardSubstitution(Matriz *b) {
 	return x;
 }
 
-Matriz* Matriz::forwardSubstitution(Matriz *b) {
+Matriz* Matriz::forwardSubstitution(Matriz &b) {
 	Matriz *x = new Matriz(this->_columnas,1);
 
 	for(int i = 0; i < _filas; i++) {
 		// Me armo un acumulador del nuevo valor Xi, voy construyendo el X de arriba hacia abajo
 		// Utilizo Xi = (Bi - sum(Aij, Xj)/Aii j=i+1 hasta n (cols))
-		double valorX = b->elem(i, 0);
+		double valorX = b.elem(i, 0);
 
 		// Hago Xi = (Bi - sum(Aij, Xj)
 		for(int j = 0; j < i; j++) {

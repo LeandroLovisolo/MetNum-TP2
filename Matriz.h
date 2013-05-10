@@ -18,6 +18,7 @@ public:
 
 	int filas() const;
 	int columnas() const;
+	void transponer();
 	double &elem(const int fila, const int columna);
 
 	double max(); // Máximo elemento de la matriz
@@ -29,8 +30,8 @@ public:
 	Matriz* operator*(double k);
 
 	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
-	Matriz* backwardSubstitution(Matriz *b);
-	Matriz* forwardSubstitution(Matriz *b);
+	Matriz* backwardSubstitution(Matriz &b);
+	Matriz* forwardSubstitution(Matriz &b);
 	void print();
 
 private:
