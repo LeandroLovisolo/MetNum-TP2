@@ -1,6 +1,7 @@
 #ifndef MATRIZ_H_
 #define MATRIZ_H_
 
+#include <tuple>
 #include <utility>
 
 class Matriz {
@@ -14,6 +15,8 @@ public:
 	Matriz(Matriz& otra);
 	~Matriz();
 
+	static Matriz* identidad(int n);
+
 	int filas() const;
 	int columnas() const;
 	double &elem(const int fila, const int columna);
@@ -26,7 +29,7 @@ public:
 	Matriz* operator*(Matriz &m);
 	Matriz* operator*(double k);
 
-	std::pair <Matriz*, Matriz*> factorizacionPLU();
+	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
 	Matriz* backwardsSubstitution(Matriz *b);
 	Matriz* forwardSubstitution(Matriz *b);
 	void print();

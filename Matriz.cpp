@@ -23,6 +23,16 @@ Matriz::~Matriz() {
 	delete vectorMatriz;
 }
 
+Matriz* Matriz::identidad(int n) {
+	Matriz *m = new Matriz(n, n);
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < n; j++) {
+			m->elem(i, j) = (i == j ? 1 : 0);
+		}
+	}
+	return m;
+}
+
 int Matriz::filas() const {
 	return _filas;
 }
@@ -96,31 +106,30 @@ Matriz* Matriz::operator*(double k) {
 	return producto;
 }
 
-//Devuelve en la primera posición a P, en la segunda a L y deja a A como U
-pair <Matriz*, Matriz*> Matriz::factorizacionPLU() {
-	Matriz *L = new Matriz(this->_filas, this->_columnas);
-	Matriz *P = new Matriz(this->_filas, this->_columnas);
-	pair <Matriz*,Matriz*> resultado;
-	resultado = make_pair(P,L);
-	L->transformarEnIdent();
-	P->transformarEnIdent();
-	for(int j=0;j<this->_columnas-1;j++) { //Me voy moviendo por las columnas
-		//Intercambio la fila con el máximo absoluto por la actual
-		//Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
-		//ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
-		int jp = this->filaConMayorAbsEnCol(j,j);
-		this->intercambiarFilas(jp,j);
-		P->intercambiarFilas(jp,j); //Intercambio las filas en la matriz identidad para tener P
+tuple <Matriz*, Matriz*, Matriz*> Matriz::factorizacionPLU() {
+	Matriz *P = identidad(_filas);
+	Matriz *L = identidad(_filas);
+	Matriz *U = new Matriz(*this);
+
+	for(int j = 0; j < _columnas - 1; j++) {
+		// Intercambio la fila con el máximo absoluto por la actual
+		// Tener en cuenta que las columnas también determinan la fila a la cual intecambiar el mayor
+		// ya que vamos moviendonos diagonalmente, (j,j) va a tener siempre el maximo
+
+		int jp = U->filaConMayorAbsEnCol(j,j);
+		P->intercambiarFilas(jp, j);
 		L->intercambiarFilas(jp, j, j);
-		for(int i=j+1;i<this->_filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
-			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
-			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
-			for(int x=j+1;x<_columnas;x++) {
-				this->elem(i,x) = this->elem(i,x) - L->elem(i,j)*this->elem(j,x);
+		U->intercambiarFilas(jp, j);
+
+		for(int i = j + 1; i < _filas; i++) {
+			L->elem(i, j) = U->elem(i, j) / U->elem(j, j); // Pongo en L Mij
+			U->elem(i, j) = 0; // Pongo en 0 el elemento eliminado
+			for(int x = j + 1; x < _columnas; x++) {
+				U->elem(i, x) = U->elem(i, x) - L->elem(i, j) * U->elem(j, x);
 			}
 		}
 	}
-	return resultado;
+	return make_tuple(P, L, U);
 }
 
 //Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
@@ -178,14 +187,6 @@ void Matriz::intercambiarFilas(const int i, const int j, const int hasta) {
 		double elemento = elem(i, x);
 		elem(i,x) = elem(j,x);
 		elem(j,x) = elemento;
-	}
-}
-
-void Matriz::transformarEnIdent() {
-	for(int y = 0; y < _filas; y++) {
-		for(int x = 0; x < _columnas; x++) {
-			elem(y, x) = (y == x ? 1 : 0);
-		}
 	}
 }
 
