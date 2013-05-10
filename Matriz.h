@@ -29,7 +29,6 @@ public:
 	void intercambiarFilas(const int i, const int j, const int hasta); 
 	void transformarEnIdent();
 	std::pair <Matriz*,Matriz*> factorizacionPLU();
-	Matriz* factorizacionLU();
 	Matriz* backwardsSubstitution(Matriz *b);
 	Matriz* forwardSubstitution(Matriz *b);
 	void print();

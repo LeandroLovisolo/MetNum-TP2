@@ -137,22 +137,6 @@ pair <Matriz*,Matriz*> Matriz::factorizacionPLU() {
 	return resultado;
 }
 
-//Devuelve L y la matriz queda como U
-Matriz* Matriz::factorizacionLU() {
-	Matriz *L = new Matriz(this->_filas, this->_columnas);
-	L->transformarEnIdent();
-	for(int j=0;j<this->_columnas-1;j++) { //Me voy moviendo por las columnas
-		for(int i=j+1;i<this->_filas;i++) { //Voy recorriendo todas las filas poniendolas en 0
-			L->elem(i,j) = this->elem(i,j)/this->elem(j,j); //Pongo en L Mij
-			this->elem(i,j) = 0; //Pongo en 0 el elemento eliminado
-			for(int x=j+1;x<_columnas;x++) {
-				this->elem(i,x) = this->elem(i,x) - L->elem(i,j)*this->elem(j,x);
-			}
-		}
-	}
-	return L;
-}
-
 //Ax = b resuelvo sistema (Solo matrices trianguladas) devuelvo X
 Matriz* Matriz::backwardsSubstitution(Matriz *b) {
 	Matriz *x = new Matriz(this->_columnas,1);
