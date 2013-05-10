@@ -30,12 +30,12 @@ int main() {
 	cout << "Matriz x:" << endl;
 	x.print();
 
-	Matriz* d = aplicarDCT(&x);
+	Matriz* d = aplicarDCT(x);
 
 	cout << "Matriz d:" << endl;
 	d->print();
 
-	Matriz* x0 = revertirDCT(d);
+	Matriz* x0 = revertirDCT(*d, x.max());
 
 	cout << "Matriz x0:" << endl;
 	x0->print();
