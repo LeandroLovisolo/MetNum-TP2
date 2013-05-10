@@ -16,13 +16,12 @@ Matriz *MatrizG(const int n) {
 	return mat;
 }
 
-Matriz *MatrizSt(const int n) {
-	Matriz *mat = new Matriz(1,n);
-	for(int j=0;j<n;j++) {
-		mat->elem(0,j) = j+(1/2.0); //(n-1) + 1/2, Como empieza en i = 0, ((n+1)-1) + 1/2 = n + 1/2
+Matriz* MatrizSt(const int n) {
+	Matriz m(1,n);
+	for(int j = 0; j < n; j++) {
+		m.elem(0, j) = j + (1 / 2.0); //(n-1) + 1/2, Como empieza en i = 0, ((n+1)-1) + 1/2 = n + 1/2
 	}
-	*mat*(M_PI/n); //Multiplico por el escalar M_PI/n
-	return mat;
+	return m * (M_PI / n);
 }
 
 double C(const int k, const int n) {

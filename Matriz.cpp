@@ -48,12 +48,14 @@ Matriz* Matriz::operator*(Matriz &m) {
 	return producto;
 }
 
-void Matriz::operator*(const double cst) {
-	for(int i=0;i<_filas;i++) {
-		for(int j=0;j<_columnas;j++) {
-			this->elem(i,j) = this->elem(i,j)*cst;
+Matriz* Matriz::operator*(double k) {
+	Matriz* producto = new Matriz(*this);
+	for(int i = 0; i < _filas; i++) {
+		for(int j = 0; j < _columnas; j++) {
+			producto->elem(i, j) = producto->elem(i, j) * k;
 		}
 	}
+	return producto;
 }
 
 void Matriz::operator+(Matriz &mat) {

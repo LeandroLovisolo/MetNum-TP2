@@ -16,7 +16,7 @@ public:
 
 	void operator+(Matriz &mat);
 	Matriz* operator*(Matriz &m);
-	void operator*(const double cst);
+	Matriz* operator*(double k);
 	double &elem(const int fila, const int columna);
 
 	double max(); //Devuelve el máximo elemento de la matriz
