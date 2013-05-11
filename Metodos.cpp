@@ -1,23 +1,10 @@
 #include <iostream>
-#include <fstream>
 #include <random>
 #include <chrono>
 #include "Ecuaciones.h"
 #include "Metodos.h"
 
 using namespace std;
-
-void grabarSonido(Matriz& mat, char* fileName) {
-	ofstream file(fileName);
-	if(file.is_open()) {
-		for(int i = 0; i < mat.filas(); i++) {
-			for(int j = 0; j < mat.columnas(); j++) {
-				file << mat.elem(i,j) << " ";
-			}
-		}
-		file.close();
-	}
-}
 
 void agregarRuidoAditivo(Matriz &m) {
 	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
@@ -38,21 +25,4 @@ void eliminarRuidoUmbral(Matriz &m, const double umbral) {
 			if(abs(m.elem(i, j)) < umbral) m.elem(i, j) = 0;
 		}
 	}
-}
-
-void PruebaMetodo1(Matriz &Xoriginal) {
-	Matriz Xruido(Xoriginal);
-	agregarRuidoAditivo(Xruido);
-	cout << "Ruido agregado PSNR: " << PSNR(Xoriginal, Xruido, Xoriginal.max()) << endl;
-
-	grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
-
-	Matriz *DCT = aplicarDCT(Xruido);
-	grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
-	eliminarRuidoUmbral(*DCT, 50);
-	grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
-	Matriz *res = revertirDCT(*DCT, Xoriginal.rango());
-	grabarSonido(*res, (char*) "dopp512SinRuido.txt");
-	
-	cout << "PSNR final: " << PSNR(Xoriginal, *res, Xoriginal.max()) << endl;
 }
