@@ -7,4 +7,6 @@ void aplicarYrevertirDCT();
 void pruebaSubmatriz();
 void pruebaMetodoSimpleEliminacion();
 void  aplicarYrevertirDCTMatrices();
+void pruebaCargarYGrabarMatriz();
+
 #endif

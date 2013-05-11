@@ -3,6 +3,7 @@
 #include "Ecuaciones.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -19,6 +20,41 @@ Matriz *cargarSonido(char *fileName) {
 		file.close();
 	}
 	return mat;
+}
+
+Matriz *cargarMatriz(char *fileName) {
+	Matriz *mat;
+	ifstream file(fileName);
+	if(file.is_open()) {
+		string temp;
+		file >> temp; //Leo el P2
+		int longitud;
+		int altura;
+		file >> longitud;
+		file >> altura;
+		mat = new Matriz(altura, longitud);
+		for(int i=0;i<altura;i++) {
+			for(int j=0;j<longitud;j++) {
+				file >> mat->elem(i,j);
+			}
+		}
+		file.close();
+	}
+	return mat;
+}
+
+void grabarMatriz(Matriz& mat, char* fileName) {
+	ofstream file(fileName);
+	if(file.is_open()) {
+		file << "P2" << endl;
+		file << mat.columnas() << " " << mat.filas() << endl;
+		for(int i = 0; i < mat.filas(); i++) {
+			for(int j = 0; j < mat.columnas(); j++) {
+				file << mat.elem(i,j) << endl;
+			}
+		}
+		file.close();
+	}
 }
 
 void grabarSonido(Matriz& mat, char* fileName) {
@@ -174,4 +210,10 @@ void aplicarYrevertirDCTMatrices() {
 	x0->print();
 	delete d;
 	delete x0;
+}
+
+void pruebaCargarYGrabarMatriz() {
+	Matriz *imagen = cargarMatriz((char*) "lena.pgm");
+	grabarMatriz(*imagen, (char*) "lena2.pgm");
+	delete imagen;
 }
