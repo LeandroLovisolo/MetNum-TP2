@@ -6,10 +6,10 @@
 
 using namespace std;
 
-void agregarRuidoAditivo(Matriz &m) {
+void agregarRuidoAditivo(Matriz &m, const double mu, const double sigma) {
 	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 	default_random_engine generator(seed);
-  	normal_distribution<double> distribution(0,1);
+  	normal_distribution<double> distribution(mu,sigma);
 	for(int i = 0; i < m.filas(); i++) {
 		for(int j = 0; j < m.columnas(); j++) {
 			//cout << "Que larga: " << distribution(generator) << endl;
