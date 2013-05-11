@@ -20,6 +20,7 @@ public:
 	int columnas() const;
 	void transponer();
 	double &elem(const int fila, const int columna);
+	void cambiarColumna(Matriz& mat, const int columna);
 
 	double max(); // Máximo elemento de la matriz
 	double min(); // Mínimo elemento de la matriz

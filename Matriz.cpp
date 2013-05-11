@@ -42,6 +42,12 @@ Matriz* Matriz::submatriz(const int desdeFil, const int hastaFil, const int desd
 	return submatriz;
 }
 
+void Matriz::cambiarColumna(Matriz& mat, const int columna) {
+	for(int i = 0;i < _filas; i++) {
+		elem(i,columna) = mat.elem(i,0);
+	}
+}
+
 int Matriz::filas() const {
 	return _filas;
 }
@@ -54,6 +60,14 @@ void Matriz::transponer(){
 	int temp = _filas;
 	_filas = _columnas;
 	_columnas = temp;
+	double *tempMat = new double[_filas * _columnas];
+	for(int i = 0; i < _filas ; i++) {
+		for(int j = 0; j < _columnas; j++) {
+			tempMat[j * _columnas + i] = elem(i,j);
+		}
+	}
+	delete vectorMatriz;
+	vectorMatriz = tempMat;
 }
 
 double &Matriz::elem(const int fila, const int columna) {
