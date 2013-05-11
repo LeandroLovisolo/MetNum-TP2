@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -50,7 +51,8 @@ void grabarMatriz(Matriz& mat, char* fileName) {
 		file << mat.columnas() << " " << mat.filas() << endl;
 		for(int i = 0; i < mat.filas(); i++) {
 			for(int j = 0; j < mat.columnas(); j++) {
-				file << mat.elem(i,j) << endl;
+				int valor = (unsigned char) mat.elem(i,j);
+				file << valor << endl;
 			}
 		}
 		file.close();
@@ -214,6 +216,11 @@ void aplicarYrevertirDCTMatrices() {
 
 void pruebaCargarYGrabarMatriz() {
 	Matriz *imagen = cargarMatriz((char*) "lena.pgm");
+	Matriz Xruido(*imagen);
+	agregarRuidoAditivo(*imagen,0,10);
+	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, 255) << endl;
+	//Matriz *DCT = aplicarDCT(*imagen);
+	//eliminarRuidoUmbral(*DCT, 1);
 	grabarMatriz(*imagen, (char*) "lena2.pgm");
 	delete imagen;
 }
