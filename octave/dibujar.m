@@ -15,6 +15,7 @@ hold on;
 plot(vector_1,  'color', color_vector_1);
 if(exist('vector_2')) plot(vector_2, 'color', color_vector_2); endif;
 if(exist('vector_3')) plot(vector_3, 'color', color_vector_3); endif;
+hold off;
 title('Datos');
 legend(leyenda);
 
@@ -23,5 +24,6 @@ hold on;
 plot(M * vector_1,  'color', color_vector_1);
 if(exist('vector_2')) plot(M * vector_2, 'color', color_vector_2); endif;
 if(exist('vector_3')) plot(M * vector_3, 'color', color_vector_3); endif;
+hold off;
 title('DCT');
 legend(leyenda);
