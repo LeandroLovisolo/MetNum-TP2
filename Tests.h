@@ -2,9 +2,9 @@
 #define TESTS_H_
 #include "Matriz.h"
 
-void PruebaMetodo1();
+void pruebaMetodo1();
 void aplicarYrevertirDCT();
 void pruebaSubmatriz();
-
+void pruebaMetodoSimpleEliminacion();
 
 #endif
