@@ -1,27 +1,27 @@
-function dibujar(original, con_ruido, sin_ruido)
+function dibujar(vector_1, vector_2, vector_3)
 
-color_original  = "black";
-color_con_ruido = "red";
-color_sin_ruido = "blue";
-leyenda         = {"Original"};
+color_vector_1 = 'black';
+color_vector_2 = 'red';
+color_vector_3 = 'blue';
+leyenda        = {'Vector 1'};
 
-if(exist("con_ruido")) leyenda{end + 1} = "Con ruido"; endif;
-if(exist("sin_ruido")) leyenda{end + 1} = "Sin ruido"; endif;
+if(exist('vector_2')) leyenda{end + 1} = 'Vector 2'; endif;
+if(exist('vector_3')) leyenda{end + 1} = 'Vector 3'; endif;
 
-M = matriz_dct(length(original));
+M = matriz_dct(length(vector_1));
 
 figure;
 hold on;
-plot(original,  "color", color_original);
-if(exist("con_ruido")) plot(con_ruido, "color", color_con_ruido); endif;
-if(exist("sin_ruido")) plot(sin_ruido, "color", color_sin_ruido); endif;
-title("Datos");
+plot(vector_1,  'color', color_vector_1);
+if(exist('vector_2')) plot(vector_2, 'color', color_vector_2); endif;
+if(exist('vector_3')) plot(vector_3, 'color', color_vector_3); endif;
+title('Datos');
 legend(leyenda);
 
 figure;
 hold on;
-plot(M * original,  "color", color_original);
-if(exist("con_ruido")) plot(M * con_ruido, "color", color_con_ruido); endif;
-if(exist("sin_ruido")) plot(M * sin_ruido, "color", color_sin_ruido); endif;
-title("DCT");
+plot(M * vector_1,  'color', color_vector_1);
+if(exist('vector_2')) plot(M * vector_2, 'color', color_vector_2); endif;
+if(exist('vector_3')) plot(M * vector_3, 'color', color_vector_3); endif;
+title('DCT');
 legend(leyenda);
