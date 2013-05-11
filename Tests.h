@@ -6,5 +6,5 @@ void pruebaMetodo1();
 void aplicarYrevertirDCT();
 void pruebaSubmatriz();
 void pruebaMetodoSimpleEliminacion();
-
+void  aplicarYrevertirDCTMatrices();
 #endif

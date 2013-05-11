@@ -37,7 +37,7 @@ void grabarSonido(Matriz& mat, char* fileName) {
 void pruebaMetodoSimpleEliminacion() {
 	Matriz *Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
 	Matriz Xruido(*Xoriginal);
-	agregarRuidoAditivo(Xruido,0.5,2);
+	agregarRuidoAditivo(Xruido,2,2);
 	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 	//grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
 
@@ -46,7 +46,12 @@ void pruebaMetodoSimpleEliminacion() {
 
 	//Pongo en 0 todas las frecuencias de un poco más del medio hasta el final
 	for(int i=0;i<Xruido.filas();i++) {
-		Xruido.elem(i,0) = 0;
+		if(Xruido.elem(i,0) < 0) {
+			Xruido.elem(i,0) = Xruido.elem(i,0) - Xruido.elem(i,0)/1000;
+		}
+		else {
+			Xruido.elem(i,0) = Xruido.elem(i,0) + Xruido.elem(i,0)/1000;
+		}
 	}
 	//grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
 	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
@@ -63,14 +68,14 @@ void pruebaMetodo1() {
 	Matriz *DCTOr = aplicarDCT(*Xoriginal);
 	grabarSonido(*DCTOr, (char*) "dopp512DCTOriginal.txt");
 	Matriz Xruido(*Xoriginal);
-	agregarRuidoAditivo(Xruido,0.5,1);
+	agregarRuidoAditivo(Xruido,0,0.5);
 	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 
 	grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
 
 	Matriz *DCT = aplicarDCT(Xruido);
 	grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
-	eliminarRuidoUmbral(*DCT, 50);
+	eliminarRuidoUmbral(*DCT, 1);
 	grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
 	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
 	grabarSonido(*res, (char*) "dopp512SinRuido.txt");
@@ -107,6 +112,7 @@ void pruebaSubmatriz() {
 	cout << "Submatriz " << endl;
 	Matriz *sub = A.submatriz(0,1,0,1);
 	sub->print();
+	delete sub;
 }
 
 void aplicarYrevertirDCT() {
@@ -128,4 +134,44 @@ void aplicarYrevertirDCT() {
 
 	cout << "Matriz x0:" << endl;
 	x0->print();
+	delete d;
+	delete x0;
+}
+
+void aplicarYrevertirDCTMatrices() {
+	Matriz A(4,4);
+	A.elem(0,0) = 1;
+	A.elem(0,1) = 1;
+	A.elem(0,2) = 0;
+	A.elem(0,3) = 3;
+
+	A.elem(1,0) = 2;
+	A.elem(1,1) = 1;
+	A.elem(1,2) = -1;
+	A.elem(1,3) = 1;
+
+	A.elem(2,0) = 3;
+	A.elem(2,1) = -1;
+	A.elem(2,2) = -1;
+	A.elem(2,3) = 2;
+
+	A.elem(3,0) = -1;
+	A.elem(3,1) = 2;
+	A.elem(3,2) = 3;
+	A.elem(3,3) = -1;
+
+	cout << "Matriz A:" << endl;
+	A.print();
+
+	Matriz* d = aplicarDCT(A);
+
+	cout << "Matriz d:" << endl;
+	d->print();
+
+	Matriz* x0 = revertirDCT(*d, A.rango());
+
+	cout << "Matriz x0:" << endl;
+	x0->print();
+	delete d;
+	delete x0;
 }
