@@ -90,19 +90,20 @@ Matriz* aplicarDCT(Matriz& x) {
 	else {
 		Matriz *temp = (*M) * x;
 		M->transponer();
-		resultado = (*temp) * x;
+		resultado = (*temp) * (*M);
 		delete temp;
 	}
 	delete M;
 	return resultado;
 }
 
-Matriz* revertirDCT(Matriz& x, const int rango) {
-	Matriz* M = MatrizM(x.filas(), rango);
-//	if(x->columnas() == 1) {
-		tuple<Matriz*, Matriz*, Matriz*> plu = M->factorizacionPLU();
+Matriz* revertirDCT(Matriz& xTransformada, const int rango) {
+	Matriz *x = new Matriz(xTransformada);
+	Matriz* M = MatrizM(x->filas(), rango);
+	tuple<Matriz*, Matriz*, Matriz*> plu = M->factorizacionPLU();
+	if(x->columnas() == 1) {
 		//Hago Ly = Px
-		Matriz* Px = (*get<0>(plu)) * x;
+		Matriz* Px = (*get<0>(plu)) * (*x);
 		Matriz* y = get<1>(plu)->forwardSubstitution(*Px);
 		//Hago Uj = y
 		Matriz* j = get<2>(plu)->backwardSubstitution(*y);
@@ -113,6 +114,38 @@ Matriz* revertirDCT(Matriz& x, const int rango) {
 		delete get<1>(plu);
 		delete get<2>(plu);
 		return j;
-//	}
+	}
+	else {
+		//Hago Ly = Px , Hago Uj = y , para cada columna
+		for(int i = 0; i < x->columnas(); i++) {
+			Matriz *columna = x->submatriz(0, x->filas()-1 ,i ,i);
+			//P*x
+			Matriz* Px = (*get<0>(plu)) * (*columna);
+			Matriz* y = get<1>(plu)->forwardSubstitution(*Px);
+			//Hago Uj = y
+			Matriz* j = get<2>(plu)->backwardSubstitution(*y);
+			x->cambiarColumna(*j, i);
+			delete y;
+			delete Px;
+			delete j;
+		}
+		//Me queda x*Mt , hago (x*Mt)t = M*xt
+		x->transponer();
+		for(int i = 0; i < x->columnas(); i++) {
+			Matriz *columna = x->submatriz(0, x->filas()-1 ,i ,i);
+			//P*x
+			Matriz* Px = (*get<0>(plu)) * (*columna);
+			Matriz* y = get<1>(plu)->forwardSubstitution(*Px);
+			//Hago Uj = y
+			Matriz* j = get<2>(plu)->backwardSubstitution(*y);
+			x->cambiarColumna(*j, i);
+			delete y;
+			delete Px;
+			delete j;
+		}
+		//Me dá xt
+		x->transponer();
+		return x;
+	}
 }
 
