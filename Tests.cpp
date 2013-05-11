@@ -219,8 +219,12 @@ void pruebaCargarYGrabarMatriz() {
 	Matriz Xruido(*imagen);
 	agregarRuidoAditivo(*imagen,0,10);
 	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, 255) << endl;
-	//Matriz *DCT = aplicarDCT(*imagen);
-	//eliminarRuidoUmbral(*DCT, 1);
-	grabarMatriz(*imagen, (char*) "lena2.pgm");
+	Matriz *DCT = aplicarDCT(*imagen);
+	eliminarRuidoUmbral(*DCT, 2);
+	Matriz *sinRuido = revertirDCT(*DCT,255);
+	grabarMatriz(*sinRuido, (char*) "lena2.pgm");
+	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, 255) << endl;
+	delete DCT;
+	delete sinRuido;
 	delete imagen;
 }
