@@ -1,4 +1,4 @@
-function animacion(B_original, B)
+function animacion(B_original, B, k)
 
 % Muestro imagen original
 figure;
@@ -19,9 +19,9 @@ rango = deltaFilas:deltaFilas:length(B);
 figure;
 
 for i = rango
-    % Elimino todas las filas desde i hasta el final
+    % Multiplico por el coeficiente todas las filas desde i hasta el final
     X = D;
-    X(i:end, :) = 0;
+    X(i:end, :) = X(i:end, :) * k;
     B_actual = dct_a_imagen(X);
     
     % Computo PSNR y lo guardo en el vector
