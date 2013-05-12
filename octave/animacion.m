@@ -46,7 +46,7 @@ ylabel("PSNR");
 % Muestro la imagen de la iteración que obtuvo mayor PSNR
 [max_psnr, idx_max_psnr] = max(psnrs);
 filas = deltaFilas * idx_max_psnr;
-D(filas:end, :) = 0;
+D(filas:end, :) = D(filas:end, :) * k;
 figure;
 imshow(dct_a_imagen(D));
 title(sprintf('Imagen con mayor PSNR. Filas conservadas: %d. PSNR: %f.', filas, max_psnr));
