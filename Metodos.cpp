@@ -18,11 +18,8 @@ void agregarRuidoAditivo(Matriz &m, const double mu, const double sigma) {
 	}
 }
 
-void eliminarRuidoUmbral(Matriz &m, const double umbral) {
-	cout << "Rango: " << m.rango() << endl;
-	for(int i = 0; i < m.filas(); i++) {
-		for(int j = 0; j < m.columnas(); j++) {
-			if(abs(m.elem(i, j)) < umbral) m.elem(i, j) = 0;
-		}
+void atenuarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k) {
+	for(int i = coefInicial; i <= coefFinal; i++) {
+		m.elem(i,0) *= k;
 	}
 }
