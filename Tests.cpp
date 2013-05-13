@@ -103,20 +103,21 @@ void pruebaMetodoSimpleEliminacion() {
 
 void pruebaMetodo1() {
 	Matriz *Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
-	Matriz *DCTOr = aplicarDCT(*Xoriginal);
-	grabarSonido(*DCTOr, (char*) "dopp512DCTOriginal.txt");
+	//Matriz *DCTOr = aplicarDCT(*Xoriginal);
+	//grabarSonido(*DCTOr, (char*) "dopp512DCTOriginal.txt");
 	Matriz Xruido(*Xoriginal);
-	agregarRuidoAditivo(Xruido,0,0.5);
+	agregarRuidoAditivo(Xruido,0,2);
 	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 
-	grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
-
+	//grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
 	Matriz *DCT = aplicarDCT(Xruido);
-	grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
-	eliminarRuidoUmbral(*DCT, 1);
-	grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
+	//grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
+	//atenuarIntervaloSonido(*DCT, 300, 511, 1/1.2);
+	//atenuarIntervaloSonido(*DCT, 31,350, 1/(1 + (1/4)) );
+	//atenuarIntervaloSonido(*DCT, 351,511, 1/2 );
+	//grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
 	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
-	grabarSonido(*res, (char*) "dopp512SinRuido.txt");
+	//grabarSonido(*res, (char*) "dopp512SinRuido.txt");
 	
 	cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;
@@ -217,13 +218,13 @@ void aplicarYrevertirDCTMatrices() {
 void pruebaCargarYGrabarMatriz() {
 	Matriz *imagen = cargarMatriz((char*) "lena.pgm");
 	Matriz Xruido(*imagen);
-	agregarRuidoAditivo(*imagen,0,10);
-	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, 255) << endl;
-	Matriz *DCT = aplicarDCT(*imagen);
-	eliminarRuidoUmbral(*DCT, 2);
-	Matriz *sinRuido = revertirDCT(*DCT,255);
+	agregarRuidoAditivo(Xruido,0,1);
+	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, imagen->max()) << endl;
+	Matriz *DCT = aplicarDCT(Xruido);
+	//eliminarRuidoUmbral(*DCT, 10000); Funcion a cambiar para eliminar ruido
+	Matriz *sinRuido = revertirDCT(*DCT,imagen->rango());
 	grabarMatriz(*sinRuido, (char*) "lena2.pgm");
-	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, 255) << endl;
+	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, imagen->max()) << endl;
 	delete DCT;
 	delete sinRuido;
 	delete imagen;
