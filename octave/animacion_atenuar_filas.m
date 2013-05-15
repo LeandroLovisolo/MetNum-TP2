@@ -1,4 +1,4 @@
-function animacion_atenuar_filas(B_original, B, k)
+function animacion_atenuar_filas(B_original, B, k, deltaFilas)
 
 % Muestro imagen original
 figure;
@@ -12,7 +12,6 @@ D = imagen_a_dct(B);
 psnrs = [];
 
 % Genero el rango de filas en el que voy a iterar
-deltaFilas = 8;
 rango = deltaFilas:deltaFilas:length(B);
 
 % Figura nueva para la animación
