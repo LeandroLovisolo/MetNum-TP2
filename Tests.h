@@ -2,11 +2,12 @@
 #define TESTS_H_
 #include "Matriz.h"
 
-void pruebaMetodo1();
+void pruebaSonidoRuidoAditivo();
+void pruebaSonidoRuidoImpulsivo();
 void aplicarYrevertirDCT();
 void pruebaSubmatriz();
 void pruebaMetodoSimpleEliminacion();
-void  aplicarYrevertirDCTMatrices();
+void aplicarYrevertirDCTMatrices();
 void pruebaCargarYGrabarMatriz();
 
 #endif

@@ -4,6 +4,8 @@
 #include "Matriz.h"
 
 void agregarRuidoAditivo(Matriz &m, const double mu, const double sigma);
-void eliminarRuidoUmbral(Matriz &m, const double umbral); // Teniendo la DST, pone en 0 los elementos menores a (max - min) /2
+void atenuarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k);
+void agregarRuidoImpulsivo(Matriz &m, const double p);
+void umbralizarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k);
 
 #endif /* METODOS_H_ */

@@ -125,6 +125,21 @@ Matriz* Matriz::operator*(Matriz &m) {
 	return producto;
 }
 
+Matriz* Matriz::multiplicarPorInversa(Matriz &M) {
+	tuple<Matriz*, Matriz*, Matriz*> plu = M.factorizacionPLU();
+	//Hago Ly = Px
+	Matriz* Px = (*get<0>(plu)) * (*this);
+	Matriz* y = get<1>(plu)->forwardSubstitution(*Px);
+	//Hago Uj = y
+	Matriz* j = get<2>(plu)->backwardSubstitution(*y);
+	delete y;
+	delete Px;
+	delete get<0>(plu);
+	delete get<1>(plu);
+	delete get<2>(plu);
+	return j;
+}
+
 Matriz* Matriz::operator*(double k) {
 	Matriz* producto = new Matriz(*this);
 	for(int i = 0; i < _filas; i++) {

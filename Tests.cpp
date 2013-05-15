@@ -101,24 +101,31 @@ void pruebaMetodoSimpleEliminacion() {
 	delete res;
 }
 
-void pruebaMetodo1() {
-	Matriz *Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
-	Matriz *DCTOr = aplicarDCT(*Xoriginal);
-	grabarSonido(*DCTOr, (char*) "dopp512DCTOriginal.txt");
+//cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
+
+void pruebaSonidoRuidoAditivo() {
+	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
 	Matriz Xruido(*Xoriginal);
-	agregarRuidoAditivo(Xruido,0,0.5);
-	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+	agregarRuidoAditivo(Xruido, 0, 2);
+	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+	Matriz* DCT = aplicarDCT(Xruido);
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.8);
+	Matriz* res = revertirDCT(*DCT, Xruido.rango());
+	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
+	delete Xoriginal;
+	delete DCT;
+	delete res;
+}
 
-	grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
-
-	Matriz *DCT = aplicarDCT(Xruido);
-	grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
-	eliminarRuidoUmbral(*DCT, 1);
-	grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
-	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
-	grabarSonido(*res, (char*) "dopp512SinRuido.txt");
-	
-	cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
+void pruebaSonidoRuidoImpulsivo() {
+	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz Xruido(*Xoriginal);
+	agregarRuidoImpulsivo(Xruido, 0.1);
+	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+	Matriz* DCT = aplicarDCT(Xruido);
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.5);
+	Matriz* res = revertirDCT(*DCT, Xruido.rango());
+	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;
 	delete DCT;
 	delete res;
@@ -155,16 +162,15 @@ void pruebaSubmatriz() {
 
 void aplicarYrevertirDCT() {
 	Matriz x(4, 1);
-	x.elem(0,0) = 1;
-	x.elem(1,0) = 2;
-	x.elem(2,0) = 4;
-	x.elem(3,0) = 8;
+	x.elem(0,0) = 4.279999;
+	x.elem(1,0) = 0.849378;
+	x.elem(2,0) = -7.298978;
+	x.elem(3,0) = 7.497067;
 
 	cout << "Matriz x:" << endl;
 	x.print();
 
 	Matriz* d = aplicarDCT(x);
-
 	cout << "Matriz d:" << endl;
 	d->print();
 
@@ -217,13 +223,13 @@ void aplicarYrevertirDCTMatrices() {
 void pruebaCargarYGrabarMatriz() {
 	Matriz *imagen = cargarMatriz((char*) "lena.pgm");
 	Matriz Xruido(*imagen);
-	agregarRuidoAditivo(*imagen,0,10);
-	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, 255) << endl;
-	Matriz *DCT = aplicarDCT(*imagen);
-	eliminarRuidoUmbral(*DCT, 2);
-	Matriz *sinRuido = revertirDCT(*DCT,255);
+	agregarRuidoAditivo(Xruido,0,1);
+	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, imagen->max()) << endl;
+	Matriz *DCT = aplicarDCT(Xruido);
+	//eliminarRuidoUmbral(*DCT, 10000); Funcion a cambiar para eliminar ruido
+	Matriz *sinRuido = revertirDCT(*DCT,imagen->rango());
 	grabarMatriz(*sinRuido, (char*) "lena2.pgm");
-	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, 255) << endl;
+	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, imagen->max()) << endl;
 	delete DCT;
 	delete sinRuido;
 	delete imagen;

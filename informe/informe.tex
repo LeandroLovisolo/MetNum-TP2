@@ -24,7 +24,7 @@
 \pagestyle{fancy}
 \thispagestyle{fancy}
 \lhead{Trabajo Práctico 2, Organización del Computador II}
-\rhead{Belloli, Lovisolo, Petaccio}
+\rhead{Capra, Lovisolo, Petaccio}
 \renewcommand{\footrulewidth}{0.4pt}
 \cfoot{\thepage /\pageref{LastPage}}
 
@@ -87,10 +87,10 @@ Lautaro José Petaccio       & 443/11 & lausuper@gmail.com\\
 \vspace{1cm}
 
 \textbf{Resumen:} \\
-Pendiente.
+Se aplican distintos métodos para agregar ruido a señales sonoras e imágenes para luego, utilizando la Transformada Discreta del Coseno, plantear y sacar conclusiones sobre la eficiencia de varias técnicas de reducción del ruido agregado.
 
 \textbf{Palabras claves:}
-
+Reducción, ruido, DST, sonido, imágenes, frecuencia.
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,7 +108,12 @@ Pendiente.
 
 
 \section{Introducción Teórica}
-Pendiente.
+\textbf{Transformada Discreta del Coseno}
+En el caso real, expresa una función $f()$ determinada utilizando una base formada
+por $\{cos(0x),cos(x),cos(2x),...,cos((n-1)x)\}$.
+
+En el caso discreto es un cambio de base, dónde la base usada se compone de cosenos discretizados a distintas frecuencias
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
@@ -116,7 +121,30 @@ Pendiente.
 
 
 \section{Desarrollo}
-Pendiente.
+\subsection{Generación de ruidos}
+Implementamos el ruido aditivo e impulsivo tanto para imágenes como para sonido.
+\subsubsection{Ruido aditivo}
+La implementación agrega ruido aditivo según la distribución probabilística normal pudiendo variarse su media y varianza para generar diferente cantidad de ruido.
+
+Este ruido generalmente altera todas las frecuencias de la señal por igual variando su intensidad según los cambios en la varianza.
+
+\subsubsection{Ruido impulsivo}
+La implementación recorre la señal o la imágen y cambia sus valores por su máximo o mínimo según un valor $p$ asociado a los valores aleatorios obtenidos mediante una distribución probabilística uniforme entre $[0,1]$. Si el valor aleatorio es $< p$ entonces se impulsa la señal al máximo, si es $\geq p $ se impulsa al mínimo, y si cae entre ellos la señal queda intacta.
+
+\subsection{Eliminación de ruido}
+Implementamos y probamos los métodos de eliminación de ruido \"atenuar\" y \"umbralizar\" descriptos a continuación sobre intervalos, ya que, en las pruebas realizadas, se consiguieron mejoras en las señales en su aplicación a intervalos específicos.
+
+En el caso de imágenes, el intervalo se tiene en cuenta según su recorrido en forma diagonal, abarcando desde los cosenos con más baja frecuencia hasta los de más alta.
+
+\subsubsection{Atenuar intervalo}
+Este método de reducción de ruido, multiplica a un intervalo de la señal por una constante k de doble precisión de punto flotante.
+
+Para el caso de un k menor que uno, la señal se reduce, siendo útil para reducir incrementos de amplitudes en frecuencias.
+
+\subsubsection{Umbralizar intervalo}
+El método recorre un intervalo la señal, buscando y poniendo en 0 los valores que sean menores al valor absoluto de una constante k que recibe como parámetro.
+
+La idea de su implementación es utilizarse para poder umbralizar ciertas frecuencias que no suelen pasar de un valor determinado, pudiendo atenuar el ruido de la señal.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Resultados                                                                %%

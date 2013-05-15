@@ -30,16 +30,17 @@ public:
 	Matriz* operator*(Matriz &m);
 	Matriz* operator*(double k);
 
-	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
-	Matriz* backwardSubstitution(Matriz &b);
-	Matriz* forwardSubstitution(Matriz &b);
 	Matriz* submatriz(const int desdeFil, const int hastaFil, const int desdeCol, const int hastaCol);
+	Matriz* multiplicarPorInversa(Matriz &M);
 	void print();
 
 private:
 	void intercambiarFilas(const int i, const int j);
 	void intercambiarFilas(const int i, const int j, const int hasta);
 	int filaConMayorAbsEnCol(const int col, const int desde);
+	std::tuple <Matriz*, Matriz*, Matriz*> factorizacionPLU();
+	Matriz* backwardSubstitution(Matriz &b);
+	Matriz* forwardSubstitution(Matriz &b);
 };
 
 #endif
