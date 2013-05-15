@@ -1,4 +1,4 @@
-function animacion(B_original, B, k)
+function animacion_atenuar_filas(B_original, B, k)
 
 % Muestro imagen original
 figure;
