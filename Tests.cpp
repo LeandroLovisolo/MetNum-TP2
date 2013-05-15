@@ -101,25 +101,31 @@ void pruebaMetodoSimpleEliminacion() {
 	delete res;
 }
 
-void pruebaMetodo1() {
-	Matriz *Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
-	//Matriz *DCTOr = aplicarDCT(*Xoriginal);
-	//grabarSonido(*DCTOr, (char*) "dopp512DCTOriginal.txt");
-	Matriz Xruido(*Xoriginal);
-	agregarRuidoAditivo(Xruido,0,2);
-	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+//cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 
-	//grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
-	Matriz *DCT = aplicarDCT(Xruido);
-	//grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
-	//atenuarIntervaloSonido(*DCT, 300, 511, 1/1.2);
-	//atenuarIntervaloSonido(*DCT, 31,350, 1/(1 + (1/4)) );
-	//atenuarIntervaloSonido(*DCT, 351,511, 1/2 );
-	//grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
-	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
-	//grabarSonido(*res, (char*) "dopp512SinRuido.txt");
-	
-	cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
+void pruebaSonidoRuidoAditivo() {
+	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz Xruido(*Xoriginal);
+	agregarRuidoAditivo(Xruido, 0, 2);
+	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+	Matriz* DCT = aplicarDCT(Xruido);
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.8);
+	Matriz* res = revertirDCT(*DCT, Xruido.rango());
+	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
+	delete Xoriginal;
+	delete DCT;
+	delete res;
+}
+
+void pruebaSonidoRuidoImpulsivo() {
+	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz Xruido(*Xoriginal);
+	agregarRuidoImpulsivo(Xruido, 0.1);
+	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
+	Matriz* DCT = aplicarDCT(Xruido);
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.5);
+	Matriz* res = revertirDCT(*DCT, Xruido.rango());
+	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;
 	delete DCT;
 	delete res;
@@ -156,16 +162,15 @@ void pruebaSubmatriz() {
 
 void aplicarYrevertirDCT() {
 	Matriz x(4, 1);
-	x.elem(0,0) = 1;
-	x.elem(1,0) = 2;
-	x.elem(2,0) = 4;
-	x.elem(3,0) = 8;
+	x.elem(0,0) = 4.279999;
+	x.elem(1,0) = 0.849378;
+	x.elem(2,0) = -7.298978;
+	x.elem(3,0) = 7.497067;
 
 	cout << "Matriz x:" << endl;
 	x.print();
 
 	Matriz* d = aplicarDCT(x);
-
 	cout << "Matriz d:" << endl;
 	d->print();
 
