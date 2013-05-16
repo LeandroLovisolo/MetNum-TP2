@@ -31,10 +31,12 @@ Matriz *cargarMatriz(char *fileName) {
 	if(file.is_open()) {
 		string temp;
 		file >> temp; //Leo el P2
+		int crap;
 		int longitud;
 		int altura;
 		file >> longitud;
 		file >> altura;
+		file >> crap; //Leo la porqueria del rango
 		mat = new Matriz(altura, longitud);
 		for(int i=0;i<altura;i++) {
 			for(int j=0;j<longitud;j++) {
@@ -51,6 +53,7 @@ void grabarMatriz(Matriz& mat, char* fileName) {
 	if(file.is_open()) {
 		file << "P2" << endl;
 		file << mat.columnas() << " " << mat.filas() << endl;
+		file << "255" << endl;
 		for(int i = 0; i < mat.filas(); i++) {
 			for(int j = 0; j < mat.columnas(); j++) {
 				int valor = (unsigned char) mat.elem(i,j);
