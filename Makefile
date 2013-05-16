@@ -10,4 +10,4 @@ all: $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm $(BIN) $(shell find . -name "*.o")
+	rm -f $(BIN) $(shell find . -name "*.o")
