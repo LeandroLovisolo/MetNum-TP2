@@ -1,6 +1,6 @@
-CC  = g++
-CFLAGS = -lm -std=c++0x
-OBJ = $(addsuffix .o, $(basename $(shell find . -name "*.cpp")))
+CC     = g++
+CFLAGS = -lm -std=c++0x -ggdb
+OBJ    = $(addsuffix .o, $(basename $(shell find . -name "*.cpp")))
 BIN    = metnum
 
 all: $(OBJ)
