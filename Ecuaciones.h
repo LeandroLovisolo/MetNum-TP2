@@ -10,6 +10,7 @@ Matriz* MatrizM(const int n, const int rango);
 Matriz* MatrizMsombrero(const int n);
 Matriz* aplicarDCT(Matriz& x);
 Matriz* revertirDCT(Matriz& x, const int rango);
+Matriz* convertirImagenAVector(Matriz& imagen);
 
 double PSNR(Matriz& matOriginal, Matriz& matPerturbada, const int rangoMax);
 double ECM(Matriz& matOriginal, Matriz& matPerturbada);

@@ -134,4 +134,31 @@ Matriz* revertirDCT(Matriz& xTransformada, const int rango) {
 		return x;
 	}
 }
+ 
+Matriz* convertirImagenAVector(Matriz& imagen) {
+	Matriz* vector = new Matriz(pow(imagen.filas(),2), 1);
+	int x0 = 0;
+	int y0 = 0;
+	int x = x0;
+	int y = y0;
+	cout << "Filas del vector " << vector->filas() << endl; 
+	for(int i = 0;i < vector->filas(); i++) {
+		cout << "indice ("<<y << ","<<x<<")" << endl;
+		cout << "Voy metiendo " << imagen.elem(y,x) << endl;
+		vector->elem(i,0) = imagen.elem(y,x);
 
+		x--;
+		y++;
+
+		if(x < 0 || y >= imagen.filas()) {
+			if(x0 < imagen.filas()-1) {
+				x0++;
+			}
+			else {
+				y0++;
+			}
+			x = x0; y = y0;
+		}
+	}
+	return vector;
+}
