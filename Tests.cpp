@@ -136,29 +136,29 @@ void pruebaSonidoRuidoImpulsivo() {
 void pruebaConversionImagenAVector() {
 	Matriz A(4,4);
 	A.elem(0,0) = 1;
-	A.elem(0,1) = 1;
-	A.elem(0,2) = 0;
-	A.elem(0,3) = 3;
+	A.elem(0,1) = 2;
+	A.elem(0,2) = 3;
+	A.elem(0,3) = 4;
 
-	A.elem(1,0) = 2;
-	A.elem(1,1) = 1;
-	A.elem(1,2) = -1;
-	A.elem(1,3) = 1;
+	A.elem(1,0) = 5;
+	A.elem(1,1) = 6;
+	A.elem(1,2) = 7;
+	A.elem(1,3) = 8;
 
-	A.elem(2,0) = 3;
-	A.elem(2,1) = -1;
-	A.elem(2,2) = -1;
-	A.elem(2,3) = 2;
+	A.elem(2,0) = 9;
+	A.elem(2,1) = 10;
+	A.elem(2,2) = 11;
+	A.elem(2,3) = 12;
 
-	A.elem(3,0) = -1;
-	A.elem(3,1) = 2;
-	A.elem(3,2) = 3;
-	A.elem(3,3) = -1;
+	A.elem(3,0) = 13;
+	A.elem(3,1) = 14;
+	A.elem(3,2) = 15;
+	A.elem(3,3) = 16;
 	cout << "Matriz" << endl;
 	A.print();
 	cout << "Vector" << endl;
 	Matriz* vector = convertirImagenAVector(A);
-	//vector->print();
+	vector->print();
 	delete vector;
 
 }
