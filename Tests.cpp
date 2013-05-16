@@ -9,7 +9,7 @@
 using namespace std;
 
 Matriz *cargarSonido(char *fileName) {
-	Matriz *mat;
+	Matriz *mat = 0;
 	ifstream file(fileName);
 	if(file.is_open()) {
 		int longitud;
@@ -24,7 +24,7 @@ Matriz *cargarSonido(char *fileName) {
 }
 
 Matriz *cargarMatriz(char *fileName) {
-	Matriz *mat;
+	Matriz *mat = 0;
 	ifstream file(fileName);
 	if(file.is_open()) {
 		string temp;
@@ -123,7 +123,8 @@ void pruebaSonidoRuidoImpulsivo() {
 	agregarRuidoImpulsivo(Xruido, 0.1);
 	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 	Matriz* DCT = aplicarDCT(Xruido);
-	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.5);
+	grabarSonido(*DCT, (char*) "DCTRuidoImpulsivo.txt");
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.1);
 	Matriz* res = revertirDCT(*DCT, Xruido.rango());
 	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;

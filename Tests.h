@@ -9,5 +9,9 @@ void pruebaSubmatriz();
 void pruebaMetodoSimpleEliminacion();
 void aplicarYrevertirDCTMatrices();
 void pruebaCargarYGrabarMatriz();
+Matriz *cargarSonido(char *fileName);
+Matriz *cargarMatriz(char *fileName);
+void grabarMatriz(Matriz& mat, char* fileName);
+void grabarSonido(Matriz& mat, char* fileName);
 
 #endif
