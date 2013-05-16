@@ -1,10 +1,12 @@
-#include "Tests.h"
-#include "Metodos.h"
-#include "Ecuaciones.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cmath>
+
+#include "Tests.h"
+#include "Metodos.h"
+#include "Ecuaciones.h"
+#include "Matriz.h"
 
 using namespace std;
 
@@ -234,3 +236,28 @@ void pruebaCargarYGrabarMatriz() {
 	delete sinRuido;
 	delete imagen;
 }
+
+void pruebaAtenuar() {
+	Matriz *imagen = cargarMatriz((char*) "lena.pgm");
+	Matriz Xruido(*imagen);
+	agregarRuidoAditivo(Xruido,0,10);
+	cout << "Ruido agregado PSNR: " << PSNR(*imagen, Xruido, imagen->rango()) << endl;
+	Matriz *DCT = aplicarDCT(Xruido);
+
+	atenuarImagen(*DCT, int(DCT->filas() * DCT->columnas() * 0.05), DCT->filas() * DCT->columnas(), 0.1);
+
+	Matriz *sinRuido = revertirDCT(*DCT,imagen->rango());
+	grabarMatriz(*sinRuido, (char*) "lena2.pgm");
+	cout << "PSNR final: " << PSNR(*imagen, *sinRuido, imagen->rango()) << endl;
+	delete DCT;
+	delete sinRuido;
+	delete imagen;
+}
+
+
+
+
+
+
+
+

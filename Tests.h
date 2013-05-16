@@ -1,6 +1,5 @@
 #ifndef TESTS_H_
 #define TESTS_H_
-#include "Matriz.h"
 
 void pruebaSonidoRuidoAditivo();
 void pruebaSonidoRuidoImpulsivo();
@@ -9,5 +8,6 @@ void pruebaSubmatriz();
 void pruebaMetodoSimpleEliminacion();
 void aplicarYrevertirDCTMatrices();
 void pruebaCargarYGrabarMatriz();
+void pruebaAtenuar();
 
 #endif
