@@ -51,8 +51,42 @@ void atenuarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFina
 	}
 }
 
+void atenuarImagen(Matriz &m, int coefInicial, int coefFinal, double k) {
+	// El par (x0, y0) indica el primer elemento de la diagonal actual
+	int x0 = 0;
+	int y0 = 0;
+
+	// El par (x, y) indica el coeficiente actual
+	int x = x0;
+	int y = y0;
+
+	for(int i = 0; i < m.filas() * m.columnas(); i++) {
+		// Atenúo el coeficiente actual
+		if(coefInicial <= i && i <= coefFinal) m.elem(y, x) = k * m.elem(y, x);
+
+		// Avanzo al siguiente elemento de la diagonal
+		x--;
+		y++;
+
+		// Verifico si llegué al final de la diagonal actual
+		if(x < 0 || y >= m.filas()) {
+			// Avanzo a la siguiente diagonal
+			if(x0 < m.columnas() - 1) x0++;
+			else y0++;
+
+			// Avanzo al primer elemento de la nueva diagonal
+			x = x0;
+			y = y0;
+		}
+	}
+}
+
 void umbralizarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k) {
 	for(int i = coefInicial; i <= coefFinal; i++) {
 		if(abs(m.elem(i,0)) < k) m.elem(i,0) = 0;
 	}
 }
+
+
+
+

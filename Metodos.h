@@ -5,7 +5,9 @@
 
 void agregarRuidoAditivo(Matriz &m, const double mu, const double sigma);
 void atenuarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k);
+void atenuarImagen(Matriz &m, int coefInicial, int coefFinal, double k);
 void agregarRuidoImpulsivo(Matriz &m, const double p);
 void umbralizarIntervaloSonido(Matriz &m, const int coefInicial, const int coefFinal, const double k);
+
 
 #endif /* METODOS_H_ */
