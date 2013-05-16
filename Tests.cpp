@@ -11,7 +11,7 @@
 using namespace std;
 
 Matriz *cargarSonido(char *fileName) {
-	Matriz *mat;
+	Matriz *mat = 0;
 	ifstream file(fileName);
 	if(file.is_open()) {
 		int longitud;
@@ -26,7 +26,7 @@ Matriz *cargarSonido(char *fileName) {
 }
 
 Matriz *cargarMatriz(char *fileName) {
-	Matriz *mat;
+	Matriz *mat = 0;
 	ifstream file(fileName);
 	if(file.is_open()) {
 		string temp;
@@ -125,12 +125,42 @@ void pruebaSonidoRuidoImpulsivo() {
 	agregarRuidoImpulsivo(Xruido, 0.1);
 	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 	Matriz* DCT = aplicarDCT(Xruido);
-	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.5);
+	grabarSonido(*DCT, (char*) "DCTRuidoImpulsivo.txt");
+	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.1);
 	Matriz* res = revertirDCT(*DCT, Xruido.rango());
 	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;
 	delete DCT;
 	delete res;
+}
+void pruebaConversionImagenAVector() {
+	Matriz A(4,4);
+	A.elem(0,0) = 1;
+	A.elem(0,1) = 1;
+	A.elem(0,2) = 0;
+	A.elem(0,3) = 3;
+
+	A.elem(1,0) = 2;
+	A.elem(1,1) = 1;
+	A.elem(1,2) = -1;
+	A.elem(1,3) = 1;
+
+	A.elem(2,0) = 3;
+	A.elem(2,1) = -1;
+	A.elem(2,2) = -1;
+	A.elem(2,3) = 2;
+
+	A.elem(3,0) = -1;
+	A.elem(3,1) = 2;
+	A.elem(3,2) = 3;
+	A.elem(3,3) = -1;
+	cout << "Matriz" << endl;
+	A.print();
+	cout << "Vector" << endl;
+	Matriz* vector = convertirImagenAVector(A);
+	//vector->print();
+	delete vector;
+
 }
 
 void pruebaSubmatriz() {

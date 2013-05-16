@@ -65,7 +65,7 @@ Matriz* MatrizM(const int n, const int rango) { //Rango es Q = max - min de la s
 double PSNR(Matriz& matOriginal, Matriz& matPerturbada, const int rangoMax) {
 	//10 * log10( rango^2 / ECM)
 	double ecm = ECM(matOriginal, matPerturbada);
-	cout << "error cuadratico: " << ecm << endl;
+	//cout << "error cuadratico: " << ecm << endl;
 
 	return 10 * log10( pow(rangoMax, 2) / ecm);
 }
@@ -82,25 +82,28 @@ double ECM(Matriz& matOriginal, Matriz& matPerturbada) {
 }
 
 Matriz* aplicarDCT(Matriz& x) {
-	Matriz* M = MatrizM(x.filas(), x.rango());
 	Matriz* resultado;
 	if(x.columnas() == 1) {
+		Matriz* M = MatrizM(x.filas(), x.rango());
 		resultado = (*M) * x;
+		delete M;
 	}
 	else {
+		//255 para el rango de imagenes
+		Matriz* M = MatrizM(x.filas(), 255);
 		Matriz *temp = (*M) * x;
 		M->transponer();
 		resultado = (*temp) * (*M);
 		delete temp;
+		delete M;
 	}
-	delete M;
 	return resultado;
 }
 
 Matriz* revertirDCT(Matriz& xTransformada, const int rango) {
 	Matriz* x = new Matriz(xTransformada);
-	Matriz* M = MatrizM(x->filas(), rango);
 	if(x->columnas() == 1) {
+		Matriz* M = MatrizM(x->filas(), rango);
 		//Hago M^(-1) * xTransformada, donde xTransformada es M*x
 		Matriz *j = xTransformada.multiplicarPorInversa(*M);
 		delete M;
@@ -108,6 +111,8 @@ Matriz* revertirDCT(Matriz& xTransformada, const int rango) {
 		return j;
 	}
 	else {
+		//Rango 255 para imagenes
+		Matriz* M = MatrizM(x->filas(), 255);
 		//Hago M^(-1) * cada columna
 		for(int i = 0; i < x->columnas(); i++) {
 			Matriz* columna = x->submatriz(0, x->filas()-1 ,i ,i);
@@ -129,4 +134,31 @@ Matriz* revertirDCT(Matriz& xTransformada, const int rango) {
 		return x;
 	}
 }
+ 
+Matriz* convertirImagenAVector(Matriz& imagen) {
+	Matriz* vector = new Matriz(pow(imagen.filas(),2), 1);
+	int x0 = 0;
+	int y0 = 0;
+	int x = x0;
+	int y = y0;
+	cout << "Filas del vector " << vector->filas() << endl; 
+	for(int i = 0;i < vector->filas(); i++) {
+		cout << "indice ("<<y << ","<<x<<")" << endl;
+		cout << "Voy metiendo " << imagen.elem(y,x) << endl;
+		vector->elem(i,0) = imagen.elem(y,x);
 
+		x--;
+		y++;
+
+		if(x < 0 || y >= imagen.filas()) {
+			if(x0 < imagen.filas()-1) {
+				x0++;
+			}
+			else {
+				y0++;
+			}
+			x = x0; y = y0;
+		}
+	}
+	return vector;
+}
