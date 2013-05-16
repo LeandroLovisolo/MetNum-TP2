@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 		Ayuda(argv[0]);
 	}
 	//Imprimo el PSNR del ruido agregado
-	cout << PSNR(*muestra, *muestraConRuido, muestra->max()) << ",";
+	cout << "PSNR de la muestra con ruido agregado: " << PSNR(*muestra, *muestraConRuido, muestra->max()) << endl;
 
 	//Se preparan las matrices para calcular su DCT
 	Matriz* dctOriginal = aplicarDCT(*muestra); //DCT del dato original
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
 		//Consigo los resultados de la aplicación de los métodos
 		Matriz* res = revertirDCT(dctRuidoEliminado, muestraConRuido->rango());
 		//Imprimo el PSNR del resultado del metodo
-		cout << PSNR(*muestra, *res, muestra->max()) << endl;
+		cout << "PSNR de la muestra luego de aplicar el método: " << PSNR(*muestra, *res, muestra->max()) << endl;
 		
 		sprintf(resFileName, "%s.%s.%s.%s.%s.txt", archivo, tipo_ruido,
 		param_ruido, metodo_eliminacion, param_metodo);
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
 	else {
 		//Veo los metodos de eliminacion
 		if(strcmp(metodo_eliminacion, "atenuar") == 0 && isdigit(param_metodo[0])) {
-			atenuarImagen(dctRuidoEliminado, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.01, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1, 0.1);
+			atenuarImagen(dctRuidoEliminado, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.125, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1, 0.1);
 			//atenuarIntervaloImage(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 0.5);
 		}
 		else if(strcmp(metodo_eliminacion, "umbralizar") == 0 && isdigit(param_metodo[0])) {
@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
 		//Consigo los resultados de la aplicación de los métodos
 		Matriz* res = revertirDCT(dctRuidoEliminado, muestraConRuido->rango());
 		//Imprimo el PSNR del resultado del metodo
-		cout << PSNR(*muestra, *res, muestra->max()) << endl;
+		cout << "PSNR de la muestra luego de aplicar el método: " << PSNR(*muestra, *res, muestra->max()) << endl;
 
 		sprintf(resFileName, "%s.%s.%s.%s.%s.pgm", archivo, tipo_ruido,
 		param_ruido, metodo_eliminacion, param_metodo);
