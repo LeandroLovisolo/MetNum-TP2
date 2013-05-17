@@ -12,11 +12,9 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{subcaption}
-
-
-%Configuraciones de tp2
 \usepackage{amssymb}
 \usepackage{url}
+
 
 % Evita que el documento se estire verticalmente para ocupar
 % el espacio vacío en cada página.
@@ -41,6 +39,8 @@
 
 
 \begin{document}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Carátula                                                                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,6 +96,7 @@ Se aplican distintos métodos para agregar ruido a señales sonoras e imágenes 
 Reducción, ruido, DST, sonido, imágenes, frecuencia.
 \newpage
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Índice                                                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,6 +105,7 @@ Reducción, ruido, DST, sonido, imágenes, frecuencia.
 \tableofcontents
 
 \newpage
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Introducción Teórica                                                      %%
@@ -133,20 +135,17 @@ Reemplaza cada elemento de la muestra por máx o mín con probabilidad p, donde 
 \end{description}
 
 
-
-% \textbf{Transformada Discreta del Coseno}
-% En el caso real, expresa una función $f()$ determinada utilizando una base formada
-% por $\{cos(0x),cos(x),cos(2x),...,cos((n-1)x)\}$.
-
-% En el caso discreto es un cambio de base, dónde la base usada se compone de cosenos discretizados a distintas frecuencias
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Desarrollo}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Atenuar                                                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Atenuar}
@@ -226,11 +225,11 @@ PSNR de la muestra luego de aplicar el método: 28.62 dB
 
 \subsubsection{Ruido impulsivo en audio}
 
-Muestra dopp512.txt, varianza 10.
+Muestra dopp512.txt, probabilidad 0.01.
 
-PSNR de la muestra con ruido agregado: 16.2445
+PSNR de la muestra con ruido agregado: 16.24 dB
 
-PSNR de la muestra luego de aplicar el método: 18.2166
+PSNR de la muestra luego de aplicar el método: 18.21 dB
 
 \begin{figure}[H]
   \centering
@@ -245,8 +244,122 @@ PSNR de la muestra luego de aplicar el método: 18.2166
 \end{figure}
 
 
+\subsubsection{Ruido impulsivo en imágenes}
+
+Pendiente.
+
+\subsubsection{Resultados}
+
+Pendiente.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Umbralizar                                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Umbralizar}
+
+
+\subsubsection{Ruido aditivo en audio}
+
+Muestra ramp1234.txt, varianza 10.
+
+PSNR de la muestra con ruido agregado: 22.54 dB
+
+PSNR de la muestra luego de aplicar el método: 24.60 dB
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/ramp_aditivo_umbralizar_muestra.png}
+  \caption{Muestra en base canónica.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/ramp_aditivo_umbralizar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+Muestra dopp512.txt, varianza 10.
+
+PSNR de la muestra con ruido agregado: 14.31 dB
+
+PSNR de la muestra luego de aplicar el método: 16.45 dB
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_aditivo_umbralizar_muestra.png}
+  \caption{Muestra en base canónica.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_aditivo_umbralizar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+\subsubsection{Ruido aditivo en imágenes}
+
+Muestra lena.pgm, varianza 10.
+
+PSNR de la muestra con ruido agregado: 27.27 dB
+
+PSNR de la muestra luego de aplicar el método: 28.08 dB
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graficos/lena_aditivo_muestra.png}    
+    \caption{Antes de umbralizar.}
+  \end{subfigure}
+  ~ 
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graficos/lena_aditivo_umbralizar_muestra.png}
+    \caption{Después de umbralizar.}
+  \end{subfigure}
+  \caption{Ruido aditivo en imágenes.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/lena_aditivo_umbralizar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+\subsubsection{Ruido impulsivo en audio}
+
+Muestra dopp512.txt, probabilidad 0.01.
+
+PSNR de la muestra con ruido agregado: 14.87 dB
+
+PSNR de la muestra luego de aplicar el método: 16.96 dB
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_impulsivo_umbralizar_muestra.png}
+  \caption{Muestra en base canónica.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_impulsivo_umbralizar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+\subsubsection{Ruido impulsivo en imágenes}
+
+Pendiente.
+
+\subsubsection{Resultados}
+
+Pendiente.
 
 % \subsection{Generación de ruidos}
 % Implementamos el ruido aditivo e impulsivo tanto para imágenes como para sonido.
@@ -274,31 +387,15 @@ PSNR de la muestra luego de aplicar el método: 18.2166
 % La idea de su implementación es utilizarse para poder umbralizar ciertas frecuencias que no suelen pasar de un valor determinado, pudiendo atenuar el ruido de la señal.
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Resultados                                                                %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Resultados}
-Pendiente.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Discusión                                                                 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Discusión}
-Pendiente.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Conclusiones                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Conclusiones}
+
 Pendiente.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Apéndice A: Enunciado del Trabajo Práctico                                %%
@@ -307,7 +404,8 @@ Pendiente.
 \newpage
 
 \section{Apéndice A: Enunciado del Trabajo Práctico}
-\input{tp2}
+
+\input{enunciado}
 
 
 \end{document}
