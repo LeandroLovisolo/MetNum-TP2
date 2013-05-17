@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
 	else {
 		//Veo los metodos de eliminacion
 		if(strcmp(metodo_eliminacion, "atenuar") == 0 && isdigit(param_metodo[0])) {
-			atenuarImagen(dctRuidoEliminado, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.125, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1, 0.1);
+			atenuarImagen(dctRuidoEliminado, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3447, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1, 0.1);
 			//atenuarIntervaloImage(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 0.5);
 		}
 		else if(strcmp(metodo_eliminacion, "umbralizar") == 0 && isdigit(param_metodo[0])) {
