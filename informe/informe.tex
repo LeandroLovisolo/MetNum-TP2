@@ -9,7 +9,10 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{verbatim}
+\usepackage{float}
 \usepackage{graphicx}
+\usepackage{subcaption}
+
 
 %Configuraciones de tp2
 \usepackage{amssymb}
@@ -145,23 +148,81 @@ Reemplaza cada elemento de la muestra por máx o mín con probabilidad p, donde 
 
 \section{Desarrollo}
 
+
 \subsection{Atenuar}
+
 
 \subsubsection{Ruido aditivo en audio}
 
 Muestra ramp1234.txt, varianza 10.
 
-PSNR de la muestra con ruido agregado: 22.5536
+PSNR de la muestra con ruido agregado: 22.55 dB
 
-PSNR de la muestra luego de aplicar el método: 25.0304
+PSNR de la muestra luego de aplicar el método: 25.03 dB
 
-\begin{center}
-\includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_muestra.png} 
-\end{center}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_muestra.png}
+  \caption{Muestra en base canónica.}
+\end{figure}
 
-\begin{center}
-\includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_dct.png} 
-\end{center}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+Muestra dopp512.txt, varianza 10.
+
+PSNR de la muestra con ruido agregado: 14.02 dB
+
+PSNR de la muestra luego de aplicar el método: 16.28 dB
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_aditivo_atenuar_muestra.png}
+  \caption{Muestra en base canónica.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_aditivo_atenuar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
+
+
+\subsubsection{Ruido aditivo en imágenes}
+
+Muestra lena.pgm, varianza 10.
+
+PSNR de la muestra con ruido agregado: 27.23 dB
+
+PSNR de la muestra luego de aplicar el método: 28.62 dB
+
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graficos/lena_aditivo_muestra.png}    
+    \caption{Antes de atenuar.}
+  \end{subfigure}
+  ~ 
+  \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graficos/lena_aditivo_atenuar_muestra.png}
+    \caption{Después de atenuar.}
+  \end{subfigure}
+  \caption{Ruido aditivo en imágenes.}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/lena_aditivo_atenuar_dct.png} 
+\end{figure}
 
 
 \subsubsection{Ruido impulsivo en audio}
@@ -172,13 +233,17 @@ PSNR de la muestra con ruido agregado: 16.2445
 
 PSNR de la muestra luego de aplicar el método: 18.2166
 
-\begin{center}
-\includegraphics[width=15cm]{graficos/dopp_impulsivo_atenuar_muestra.png} 
-\end{center}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_impulsivo_atenuar_muestra.png} 
+  \caption{Muestra en base canónica.}
+\end{figure}
 
-\begin{center}
-\includegraphics[width=15cm]{graficos/dopp_impulsivo_atenuar_dct.png} 
-\end{center}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{graficos/dopp_impulsivo_atenuar_dct.png} 
+  \caption{Muestra en base DCT.}
+\end{figure}
 
 
 
