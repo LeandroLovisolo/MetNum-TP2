@@ -42,7 +42,7 @@ void agregarRuidoImpulsivo(Matriz &m, const double p) {
 			if(randNum < p) {
 				m.elem(i,j) = max;
 			}
-			else if(randNum >= p) {
+			else if(randNum >= 1 - p) {
 				m.elem(i,j) = min;
 			}
 		}
