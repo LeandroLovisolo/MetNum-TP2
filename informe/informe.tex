@@ -115,6 +115,21 @@ La Transformada Discreta del Coseno, de ahora en más DCT, permite expresar un v
 
 En el caso de señales bidimensionales representadas con matrices $\mathbb{R}^{n \times n}$, la matriz transformada obtenida es análoga al caso unidimensional, en la que se pueden obtener los coeficientes ordenados de menor a mayor frecuencia recorriendo las coordenadas diagonalmente de derecha a izquierda y arriba a abajo, partiendo de la coordenada superior izquierda.
 
+Los tipos de ruido aplicados a las muestras son aditivo e impulsivo, descritos a continuación:
+
+\begin{description}
+
+\item[Ruido aditivo:]
+
+Suma a cada elemento de la muestra una variable aleatoria con distribución normal, con media cero y distintas varianzas de acuerdo al experimento.
+
+\item[Ruido impulsivo:]
+
+Reemplaza cada elemento de la muestra por máx o mín con probabilidad p, donde máx y mín representan el valor máximo y mínimo que adquieren los elementos de la muestra, y p variable de acuerdo al experimento.
+
+\end{description}
+
+
 
 % \textbf{Transformada Discreta del Coseno}
 % En el caso real, expresa una función $f()$ determinada utilizando una base formada
@@ -129,30 +144,63 @@ En el caso de señales bidimensionales representadas con matrices $\mathbb{R}^{n
 
 
 \section{Desarrollo}
-\subsection{Generación de ruidos}
-Implementamos el ruido aditivo e impulsivo tanto para imágenes como para sonido.
-\subsubsection{Ruido aditivo}
-La implementación agrega ruido aditivo según la distribución probabilística normal pudiendo variarse su media y varianza para generar diferente cantidad de ruido.
 
-Este ruido generalmente altera todas las frecuencias de la señal por igual variando su intensidad según los cambios en la varianza.
+\subsection{Atenuar}
 
-\subsubsection{Ruido impulsivo}
-La implementación recorre la señal o la imágen y cambia sus valores por su máximo o mínimo según un valor $p$ asociado a los valores aleatorios obtenidos mediante una distribución probabilística uniforme entre $[0,1]$. Si el valor aleatorio es $< p$ entonces se impulsa la señal al máximo, si es $\geq p $ se impulsa al mínimo, y si cae entre ellos la señal queda intacta.
+\subsubsection{Audio}
 
-\subsection{Eliminación de ruido}
-Implementamos y probamos los métodos de eliminación de ruido \"atenuar\" y \"umbralizar\" descriptos a continuación sobre intervalos, ya que, en las pruebas realizadas, se consiguieron mejoras en las señales en su aplicación a intervalos específicos.
+\begin{center}
+\includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_muestra.png} 
+\end{center}
 
-En el caso de imágenes, el intervalo se tiene en cuenta según su recorrido en forma diagonal, abarcando desde los cosenos con más baja frecuencia hasta los de más alta.
 
-\subsubsection{Atenuar intervalo}
-Este método de reducción de ruido, multiplica a un intervalo de la señal por una constante k de doble precisión de punto flotante.
+ramp1234 k = 0.1
 
-Para el caso de un k menor que uno, la señal se reduce, siendo útil para reducir incrementos de amplitudes en frecuencias.
+PSNR de la muestra con ruido agregado: 22.5536
+PSNR de la muestra luego de aplicar el método: 25.0304
 
-\subsubsection{Umbralizar intervalo}
-El método recorre un intervalo la señal, buscando y poniendo en 0 los valores que sean menores al valor absoluto de una constante k que recibe como parámetro.
 
-La idea de su implementación es utilizarse para poder umbralizar ciertas frecuencias que no suelen pasar de un valor determinado, pudiendo atenuar el ruido de la señal.
+\begin{center}
+\includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_dct.png} 
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+% \subsection{Generación de ruidos}
+% Implementamos el ruido aditivo e impulsivo tanto para imágenes como para sonido.
+% \subsubsection{Ruido aditivo}
+% La implementación agrega ruido aditivo según la distribución probabilística normal pudiendo variarse su media y varianza para generar diferente cantidad de ruido.
+
+% Este ruido generalmente altera todas las frecuencias de la señal por igual variando su intensidad según los cambios en la varianza.
+
+% \subsubsection{Ruido impulsivo}
+% La implementación recorre la señal o la imágen y cambia sus valores por su máximo o mínimo según un valor $p$ asociado a los valores aleatorios obtenidos mediante una distribución probabilística uniforme entre $[0,1]$. Si el valor aleatorio es $< p$ entonces se impulsa la señal al máximo, si es $\geq p $ se impulsa al mínimo, y si cae entre ellos la señal queda intacta.
+
+% \subsection{Eliminación de ruido}
+% Implementamos y probamos los métodos de eliminación de ruido \"atenuar\" y \"umbralizar\" descriptos a continuación sobre intervalos, ya que, en las pruebas realizadas, se consiguieron mejoras en las señales en su aplicación a intervalos específicos.
+
+% En el caso de imágenes, el intervalo se tiene en cuenta según su recorrido en forma diagonal, abarcando desde los cosenos con más baja frecuencia hasta los de más alta.
+
+% \subsubsection{Atenuar intervalo}
+% Este método de reducción de ruido, multiplica a un intervalo de la señal por una constante k de doble precisión de punto flotante.
+
+% Para el caso de un k menor que uno, la señal se reduce, siendo útil para reducir incrementos de amplitudes en frecuencias.
+
+% \subsubsection{Umbralizar intervalo}
+% El método recorre un intervalo la señal, buscando y poniendo en 0 los valores que sean menores al valor absoluto de una constante k que recibe como parámetro.
+
+% La idea de su implementación es utilizarse para poder umbralizar ciertas frecuencias que no suelen pasar de un valor determinado, pudiendo atenuar el ruido de la señal.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Resultados                                                                %%
