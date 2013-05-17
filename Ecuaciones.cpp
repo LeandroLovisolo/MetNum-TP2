@@ -65,8 +65,6 @@ Matriz* MatrizM(const int n, const int rango) { //Rango es Q = max - min de la s
 double PSNR(Matriz& matOriginal, Matriz& matPerturbada, const int rangoMax) {
 	//10 * log10( rango^2 / ECM)
 	double ecm = ECM(matOriginal, matPerturbada);
-	//cout << "error cuadratico: " << ecm << endl;
-
 	return 10 * log10( pow(rangoMax, 2) / ecm);
 }
 
