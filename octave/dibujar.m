@@ -3,10 +3,10 @@ function dibujar(vector_1, vector_2, vector_3)
 color_vector_1 = 'black';
 color_vector_2 = 'red';
 color_vector_3 = 'blue';
-leyenda        = {'Vector 1'};
+leyenda        = {'Original'};
 
-if(exist('vector_2')) leyenda{end + 1} = 'Vector 2'; endif;
-if(exist('vector_3')) leyenda{end + 1} = 'Vector 3'; endif;
+if(exist('vector_2')) leyenda{end + 1} = 'Con ruido'; endif;
+if(exist('vector_3')) leyenda{end + 1} = 'Luego de filtrar'; endif;
 
 M = matriz_dct(length(vector_1));
 
