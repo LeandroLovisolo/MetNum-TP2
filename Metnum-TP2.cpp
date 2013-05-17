@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
 					      atof(param_metodo));
 		}
 		else if(strcmp(metodo_eliminacion, "umbralizar") == 0 && isdigit(param_metodo[0])) {
-			atenuarImagen(dctRuidoEliminado,
+			umbralizarImagen(dctRuidoEliminado,
 					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3,
 					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1,
 					      dctRuidoEliminado.rango() * atof(param_metodo));
