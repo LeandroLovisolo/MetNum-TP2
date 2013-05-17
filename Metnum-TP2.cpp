@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 			umbralizarIntervaloSonido(dctRuidoEliminado,
 					                  dctRuidoEliminado.filas() / 2,
 					                  dctRuidoEliminado.filas() - 1,
-					                  atof(param_metodo));
+					                  dctRuidoEliminado.rango() * atof(param_metodo));
 		}
 		else {
 			Ayuda(argv[0]);
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
 		Matriz* vectorDCTRuido = convertirImagenAVector(*dctRuido);
 		grabarSonido(*vectorDCTRuido, dctRuidoFileName);
 		Matriz* vectorDctRuidoEliminado = convertirImagenAVector(dctRuidoEliminado);
-		grabarSonido(*vectorDctRuidoEliminado, dctOriginalFileName);
+		grabarSonido(*vectorDctRuidoEliminado, dctRuidoEliminadoFileName);
 
 		grabarMatriz(*res, resFileName); //Resultado
 		delete res;
