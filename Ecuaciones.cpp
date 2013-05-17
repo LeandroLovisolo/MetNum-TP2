@@ -139,10 +139,7 @@ Matriz* convertirImagenAVector(Matriz& imagen) {
 	int y0 = 0;
 	int x = x0;
 	int y = y0;
-	cout << "Filas del vector " << vector->filas() << endl; 
 	for(int i = 0;i < vector->filas(); i++) {
-		cout << "indice ("<<y << ","<<x<<")" << endl;
-		cout << "Voy metiendo " << imagen.elem(y,x) << endl;
 		vector->elem(i,0) = imagen.elem(y,x);
 
 		x--;
