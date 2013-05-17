@@ -55,9 +55,7 @@ El mismo es muy sencillo de implementar y compatible con muchos gestores de foto
 \item \textsl{Formato f\'isico:} viernes 17 de abril de 2013, de 18 a 20hs (en la clase del labo).
 \end{itemize}
 
-\newpage
-\appendix
-\section{Transformada Coseno Discreta}\label{sec:dct}
+\subsection{Transformada Coseno Discreta}\label{sec:dct}
 
 Para generar la matriz $M\in\real^{n\times n}$ que define la transformada de Coseno Discreta definimos: 
 \begin{itemize}
@@ -75,6 +73,6 @@ M = \left\lfloor \frac{q \widehat{M} + 1}{2}  \right\rfloor \label{eq:dctint}
 \end{equation} 
 donde $\left\lfloor\cdot\right\rfloor$ indica la parte entera inferior\footnote{El redondeo de un n\'umero $m$ pude definirse como $\lfloor m + 1/2 \rfloor$. Luego, $M$ se define como el redondeo de $\widehat{M}\cdot(q/2)$.}. (Es decir, escalamos los elementos de la matriz $M$ por $q/2$ y luego redondeamos los valores.)
 
-\subsection{Extensi\'on a 2D}\label{sec:dct2d}
+\subsubsection{Extensi\'on a 2D}\label{sec:dct2d}
 Dada una matriz $B\in\real^{n\times n}$, podemos extender f\'acilmente la transformada DCT a se\~nales de dos dimensiones. Para ello, aplicamos la transformaci\'on por filas y por columnas: $ M\, B\, M^t $
 
