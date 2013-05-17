@@ -103,10 +103,16 @@ int main(int argc, char *argv[]) {
 	if(strcmp(tipo_muestra,"sonido") == 0) {
 		//Veo los metodos de eliminacion
 		if(strcmp(metodo_eliminacion, "atenuar") == 0 && isdigit(param_metodo[0])) {
-			atenuarIntervaloSonido(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 0.5);
+			atenuarIntervaloSonido(dctRuidoEliminado,
+					               dctRuidoEliminado.filas() / 2,
+					               dctRuidoEliminado.filas() - 1,
+					               atof(param_metodo));
 		}
 		else if(strcmp(metodo_eliminacion, "umbralizar") == 0 && isdigit(param_metodo[0])) {
-			umbralizarIntervaloSonido(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 1000);
+			umbralizarIntervaloSonido(dctRuidoEliminado,
+					                  dctRuidoEliminado.filas() / 2,
+					                  dctRuidoEliminado.filas() - 1,
+					                  atof(param_metodo));
 		}
 		else {
 			Ayuda(argv[0]);
@@ -134,11 +140,16 @@ int main(int argc, char *argv[]) {
 	else {
 		//Veo los metodos de eliminacion
 		if(strcmp(metodo_eliminacion, "atenuar") == 0 && isdigit(param_metodo[0])) {
-			atenuarImagen(dctRuidoEliminado, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3447, dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1, 0.1);
-			//atenuarIntervaloImage(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 0.5);
+			atenuarImagen(dctRuidoEliminado,
+					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3447,
+					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1,
+					      atof(param_metodo));
 		}
 		else if(strcmp(metodo_eliminacion, "umbralizar") == 0 && isdigit(param_metodo[0])) {
-			//umbralizarIntervaloImagen(dctRuidoEliminado, dctRuidoEliminado.filas()/2, dctRuidoEliminado.filas()-1, 1000);
+			atenuarImagen(dctRuidoEliminado,
+					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3,
+					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1,
+					      dctRuidoEliminado.rango() * atof(param_metodo));
 		}
 		else {
 			Ayuda(argv[0]);
