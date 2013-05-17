@@ -14,6 +14,7 @@
 \usepackage{subcaption}
 \usepackage{amssymb}
 \usepackage{url}
+\usepackage{moreverb}
 
 
 % Evita que el documento se estire verticalmente para ocupar
@@ -296,8 +297,11 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \subsection{Umbralizar}
 
-Dado un umbral beta y un índice i, anulamos todos los coeficientes con índice mayor o igual a i y valor absoluto menor o igual a beta.
+Dado un umbral $\beta$ y un índice $i$, anulamos todos los coeficientes con índice mayor o igual a $i$ y valor absoluto menor a $\beta$.
 
+Por los mismos motivos analizados en el método \textit{Atenuar}, usamos índices $i = n * 0.5$ e $i = n * 0.3$ para el caso de muestras unidimensionales y bidimensionales, respectivamente.
+
+Despues de probar con distintos umbrales, logramos maximizar el PSNR obtenido utilizando $\beta = (max - min) * 0.1$ en la mayoría de los experimentos realizados, donde $max$ y $min$ representan el valor máximo y mínimo que adquieren los elementos de la muestra.
 
 
 \subsubsection{Ruido aditivo en audio}
@@ -422,31 +426,6 @@ Dado un umbral beta y un índice i, anulamos todos los coeficientes con índice 
   \caption{Muestra en base DCT.}
 \end{figure}
 
-% \subsection{Generación de ruidos}
-% Implementamos el ruido aditivo e impulsivo tanto para imágenes como para sonido.
-% \subsubsection{Ruido aditivo}
-% La implementación agrega ruido aditivo según la distribución probabilística normal pudiendo variarse su media y varianza para generar diferente cantidad de ruido.
-
-% Este ruido generalmente altera todas las frecuencias de la señal por igual variando su intensidad según los cambios en la varianza.
-
-% \subsubsection{Ruido impulsivo}
-% La implementación recorre la señal o la imágen y cambia sus valores por su máximo o mínimo según un valor $p$ asociado a los valores aleatorios obtenidos mediante una distribución probabilística uniforme entre $[0,1]$. Si el valor aleatorio es $< p$ entonces se impulsa la señal al máximo, si es $\geq p $ se impulsa al mínimo, y si cae entre ellos la señal queda intacta.
-
-% \subsection{Eliminación de ruido}
-% Implementamos y probamos los métodos de eliminación de ruido \"atenuar\" y \"umbralizar\" descriptos a continuación sobre intervalos, ya que, en las pruebas realizadas, se consiguieron mejoras en las señales en su aplicación a intervalos específicos.
-
-% En el caso de imágenes, el intervalo se tiene en cuenta según su recorrido en forma diagonal, abarcando desde los cosenos con más baja frecuencia hasta los de más alta.
-
-% \subsubsection{Atenuar intervalo}
-% Este método de reducción de ruido, multiplica a un intervalo de la señal por una constante k de doble precisión de punto flotante.
-
-% Para el caso de un k menor que uno, la señal se reduce, siendo útil para reducir incrementos de amplitudes en frecuencias.
-
-% \subsubsection{Umbralizar intervalo}
-% El método recorre un intervalo la señal, buscando y poniendo en 0 los valores que sean menores al valor absoluto de una constante k que recibe como parámetro.
-
-% La idea de su implementación es utilizarse para poder umbralizar ciertas frecuencias que no suelen pasar de un valor determinado, pudiendo atenuar el ruido de la señal.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Conclusiones                                                              %%
@@ -455,7 +434,13 @@ Dado un umbral beta y un índice i, anulamos todos los coeficientes con índice 
 
 \section{Conclusiones}
 
-Pendiente.
+En el caso de las imágenes, observamos que al transformarlas al dominio de la DCT, los coeficientes de frecuencias más bajas contienen la mayoría de la información. Observamos además que los ruidos analizados modifican los coeficientes más altos de la imagen, donde se definen los detalles más finos de la misma. Esto nos permite reducir este tipo de ruido fácilmente sin una pérdida signficativa de información reduciendo o eliminando los coeficientes de frecuencias altas.
+
+En contraste, los tipos de ruidos evaluados sobre señales unidimensionales se manifiestan en todos los coeficientes en el espacio de la DCT. No obstante, las muestras evaluadas presentan el grueso de la información en coeficientes medios y bajos, por lo que es posible alcanzar una mejora en PSNR atenuando los coeficientes de frecuencias más elevadas sin pérdidas significativas de información. Esto significa que la muestra resultante conserva el ruido original, pero con menor intensidad en las frecuencias más altas.
+
+En cuanto a los métodos analizados, observamos incrementos de PSNR similares en ambos métodos, pero \textit{Atenuar} resulta superior a \textit{Umbralizar} en casi todos los experimentos, ya que conserva más información al atenuar coeficientes en lugar de eliminarlos completamente. 
+
+En conclusión, los métodos basados en la DCT resultan una buena herramienta para eliminar estos tipos de ruido presentes en imágenes. Al aplicarlos en señales unidimensionales también se obtiene una mejora en el PSNR, pero menor que el caso bidimensional ya que no modifican el ruido en sus coeficientes más bajos.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -467,6 +452,31 @@ Pendiente.
 \section{Apéndice A: Enunciado del Trabajo Práctico}
 
 \input{enunciado}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Apéndice B: Código Fuente                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Apéndice B: Código Fuente}
+
+\subsection{Metodos.cpp}
+
+\verbatimtabinput{../Metodos.cpp}
+
+\subsection{Ecuaciones.cpp}
+
+\verbatimtabinput{../Ecuaciones.cpp}
+
+\subsection{Matriz.h}
+
+\verbatimtabinput{../Matriz.h}
+
+\subsection{Matriz.cpp}
+
+\verbatimtabinput{../Matriz.cpp}
 
 
 \end{document}
