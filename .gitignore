@@ -1,3 +1,4 @@
+# LaTeX
 *.acn
 *.acr
 *.alg
@@ -30,10 +31,14 @@
 *.vrb
 *.xdy
 *.tdo
+*.pdf
+
+# C++
 *.o
-*.txt
-Makefile~
 metnum
+
+# Output del programa
+*.txt
 
 # Sublime
 *.sublime-project
@@ -42,3 +47,6 @@ metnum
 # Eclipse
 .project
 .cproject
+
+# Miscelánea
+Makefile~
