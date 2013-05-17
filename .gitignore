@@ -31,7 +31,6 @@
 *.vrb
 *.xdy
 *.tdo
-*.pdf
 
 # C++
 *.o
