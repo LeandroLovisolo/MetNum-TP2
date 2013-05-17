@@ -14,7 +14,11 @@ void agregarRuidoAditivo(Matriz &m, const double mu, const double sigma) {
 	for(int i = 0; i < m.filas(); i++) {
 		for(int j = 0; j < m.columnas(); j++) {
 			//cout << "Que larga: " << distribution(generator) << endl;
-			m.elem(i,j) += distribution(generator);
+			if(m.columnas() == 1) {
+				m.elem(i,j) += distribution(generator);
+			} else {
+				m.elem(i,j) += floor(distribution(generator));
+			}
 		}
 	}
 }
