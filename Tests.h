@@ -12,9 +12,9 @@ void aplicarYrevertirDCTMatrices();
 void pruebaCargarYGrabarMatriz();
 void pruebaAtenuar();
 void pruebaConversionImagenAVector();
-Matriz *cargarSonido(char *fileName);
+Matriz *cargarVector(char *fileName);
 Matriz *cargarMatriz(char *fileName);
 void grabarMatriz(Matriz& mat, char* fileName);
-void grabarSonido(Matriz& mat, char* fileName);
+void grabarVector(Matriz& mat, char* fileName);
 
 #endif

@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 		if(muestra == 0) Ayuda(argv[0]);
 	}
 	else if(strcmp(tipo_muestra,"sonido") == 0) {
-		muestra = cargarSonido(archivo);
+		muestra = cargarVector(archivo);
 		muestraConRuido = new Matriz(*muestra);
 		if(muestra == 0) Ayuda(argv[0]);
 	}
@@ -130,11 +130,11 @@ int main(int argc, char *argv[]) {
 		sprintf(dctRuidoEliminadoFileName, "%s.dct.%s.%s.%s.%s.txt", archivo, tipo_ruido,
 		param_ruido, metodo_eliminacion, param_metodo);
 		//Grabo todo
-		grabarSonido(*muestraConRuido, muestraConRuidoFileName); //Muestra con ruido
-		grabarSonido(*dctOriginal, dctOriginalFileName); //DCT original
-		grabarSonido(*dctRuido, dctRuidoFileName); //DCT con ruido
-		grabarSonido(dctRuidoEliminado, dctRuidoEliminadoFileName); //DCT atenuar
-		grabarSonido(*res, resFileName); //Resultado
+		grabarVector(*muestraConRuido, muestraConRuidoFileName); //Muestra con ruido
+		grabarVector(*dctOriginal, dctOriginalFileName); //DCT original
+		grabarVector(*dctRuido, dctRuidoFileName); //DCT con ruido
+		grabarVector(dctRuidoEliminado, dctRuidoEliminadoFileName); //DCT atenuar
+		grabarVector(*res, resFileName); //Resultado
 		delete res;
 	}
 	else {
@@ -171,11 +171,11 @@ int main(int argc, char *argv[]) {
 		grabarMatriz(*muestraConRuido, muestraConRuidoFileName); //Muestra con ruido
 
 		Matriz* vectorDCTOriginal = convertirImagenAVector(*dctOriginal);
-		grabarSonido(*vectorDCTOriginal, dctOriginalFileName);
+		grabarVector(*vectorDCTOriginal, dctOriginalFileName);
 		Matriz* vectorDCTRuido = convertirImagenAVector(*dctRuido);
-		grabarSonido(*vectorDCTRuido, dctRuidoFileName);
+		grabarVector(*vectorDCTRuido, dctRuidoFileName);
 		Matriz* vectorDctRuidoEliminado = convertirImagenAVector(dctRuidoEliminado);
-		grabarSonido(*vectorDctRuidoEliminado, dctRuidoEliminadoFileName);
+		grabarVector(*vectorDctRuidoEliminado, dctRuidoEliminadoFileName);
 
 		grabarMatriz(*res, resFileName); //Resultado
 		delete res;
