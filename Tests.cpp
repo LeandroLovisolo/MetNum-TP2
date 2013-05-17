@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Matriz *cargarSonido(char *fileName) {
+Matriz *cargarVector(char *fileName) {
 	Matriz *mat = 0;
 	ifstream file(fileName);
 	if(file.is_open()) {
@@ -64,7 +64,7 @@ void grabarMatriz(Matriz& mat, char* fileName) {
 	}
 }
 
-void grabarSonido(Matriz& mat, char* fileName) {
+void grabarVector(Matriz& mat, char* fileName) {
 	ofstream file(fileName);
 	if(file.is_open()) {
 		for(int i = 0; i < mat.filas(); i++) {
@@ -78,14 +78,14 @@ void grabarSonido(Matriz& mat, char* fileName) {
 
 //Anda pal orto
 void pruebaMetodoSimpleEliminacion() {
-	Matriz *Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz *Xoriginal = cargarVector((char*) "signals/dopp512.txt");
 	Matriz Xruido(*Xoriginal);
 	agregarRuidoAditivo(Xruido,2,2);
 	cout << "Ruido agregado PSNR: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
-	//grabarSonido(Xruido, (char*) "dopp512ConRuido.txt");
+	//grabarVector(Xruido, (char*) "dopp512ConRuido.txt");
 
 	Matriz *DCT = aplicarDCT(Xruido);
-	//grabarSonido(*DCT, (char*) "dopp512DCTConRuido.txt");
+	//grabarVector(*DCT, (char*) "dopp512DCTConRuido.txt");
 
 	//Pongo en 0 todas las frecuencias de un poco más del medio hasta el final
 	for(int i=0;i<Xruido.filas();i++) {
@@ -96,9 +96,9 @@ void pruebaMetodoSimpleEliminacion() {
 			Xruido.elem(i,0) = Xruido.elem(i,0) + Xruido.elem(i,0)/1000;
 		}
 	}
-	//grabarSonido(*DCT, (char*) "dopp512DCTSinRuido.txt");
+	//grabarVector(*DCT, (char*) "dopp512DCTSinRuido.txt");
 	Matriz *res = revertirDCT(*DCT, Xoriginal->rango());
-	//grabarSonido(*res, (char*) "dopp512SinRuido.txt");
+	//grabarVector(*res, (char*) "dopp512SinRuido.txt");
 	
 	cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 	delete Xoriginal;
@@ -109,7 +109,7 @@ void pruebaMetodoSimpleEliminacion() {
 //cout << "PSNR final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
 
 void pruebaSonidoRuidoAditivo() {
-	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz* Xoriginal = cargarVector((char*) "signals/dopp512.txt");
 	Matriz Xruido(*Xoriginal);
 	agregarRuidoAditivo(Xruido, 0, 2);
 	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
@@ -123,12 +123,12 @@ void pruebaSonidoRuidoAditivo() {
 }
 
 void pruebaSonidoRuidoImpulsivo() {
-	Matriz* Xoriginal = cargarSonido((char*) "signals/dopp512.txt");
+	Matriz* Xoriginal = cargarVector((char*) "signals/dopp512.txt");
 	Matriz Xruido(*Xoriginal);
 	agregarRuidoImpulsivo(Xruido, 0.1);
 	cout << "PSNR ruido agregado: " << PSNR(*Xoriginal, Xruido, Xoriginal->max()) << endl;
 	Matriz* DCT = aplicarDCT(Xruido);
-	grabarSonido(*DCT, (char*) "DCTRuidoImpulsivo.txt");
+	grabarVector(*DCT, (char*) "DCTRuidoImpulsivo.txt");
 	atenuarIntervaloSonido(*DCT, DCT->filas()/2 + DCT->filas()/4 , DCT->filas()-1, 0.1);
 	Matriz* res = revertirDCT(*DCT, Xruido.rango());
 	cout << "PSNR ruido final: " << PSNR(*Xoriginal, *res, Xoriginal->max()) << endl;
