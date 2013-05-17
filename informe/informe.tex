@@ -147,13 +147,12 @@ Reemplaza cada elemento de la muestra por máx o mín con probabilidad p, donde 
 
 \subsection{Atenuar}
 
-\subsubsection{Audio}
+\subsubsection{Ruido aditivo en audio}
 
-
-
-ramp1234 k = 0.1
+Muestra ramp1234.txt, varianza 10.
 
 PSNR de la muestra con ruido agregado: 22.5536
+
 PSNR de la muestra luego de aplicar el método: 25.0304
 
 \begin{center}
@@ -164,11 +163,13 @@ PSNR de la muestra luego de aplicar el método: 25.0304
 \includegraphics[width=15cm]{graficos/ramp_aditivo_atenuar_dct.png} 
 \end{center}
 
----------------------------------
 
-dopp512 p = 0.01
+\subsubsection{Ruido impulsivo en audio}
+
+Muestra dopp512.txt, varianza 10.
 
 PSNR de la muestra con ruido agregado: 16.2445
+
 PSNR de la muestra luego de aplicar el método: 18.2166
 
 \begin{center}
