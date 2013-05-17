@@ -108,11 +108,19 @@ Reducción, ruido, DST, sonido, imágenes, frecuencia.
 
 
 \section{Introducción Teórica}
-\textbf{Transformada Discreta del Coseno}
-En el caso real, expresa una función $f()$ determinada utilizando una base formada
-por $\{cos(0x),cos(x),cos(2x),...,cos((n-1)x)\}$.
 
-En el caso discreto es un cambio de base, dónde la base usada se compone de cosenos discretizados a distintas frecuencias
+En este trabajo exploramos un conjunto de métodos basados en la Transformada Discreta del Coseno para eliminar ruidos aperiódicos sobre muestras de señales de una y dos dimensiones (ejemplo: audio e imágenes, respectivamente).
+
+La Transformada Discreta del Coseno, de ahora en más DCT, permite expresar un vector en $\mathbb{R}^n$ como combinación lineal de vectores de la forma $\{(cos(0 * t_0), \ldots cos(0 * t_{n-1})), \ldots (cos(n-1 * t_0), \ldots cos(n-1 * t_{n-1})) \}$, donde n es el tamaño de la muestra y $t_i = (i + \frac{1}{2})\frac{\pi}{n}$. Gráficamente, se puede interpretar este cambio de base como la escritura de la muestra como una suma de cosenos de distintas frecuencias, donde las coordenadas del vector transformado son coeficientes que determinan la amplitud de cada coseno, y se presentan ordenados de menor a mayor frecuencia.
+
+En el caso de señales bidimensionales representadas con matrices $\mathbb{R}^{n \times n}$, la matriz transformada obtenida es análoga al caso unidimensional, en la que se pueden obtener los coeficientes ordenados de menor a mayor frecuencia recorriendo las coordenadas diagonalmente de derecha a izquierda y arriba a abajo, partiendo de la coordenada superior izquierda.
+
+
+% \textbf{Transformada Discreta del Coseno}
+% En el caso real, expresa una función $f()$ determinada utilizando una base formada
+% por $\{cos(0x),cos(x),cos(2x),...,cos((n-1)x)\}$.
+
+% En el caso discreto es un cambio de base, dónde la base usada se compone de cosenos discretizados a distintas frecuencias
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
