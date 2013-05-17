@@ -158,9 +158,14 @@ int main(int argc, char *argv[]) {
 
 		//Grabo todo
 		grabarMatriz(*muestraConRuido, muestraConRuidoFileName); //Muestra con ruido
-		grabarMatriz(*dctOriginal, dctOriginalFileName); //DCT original
-		grabarMatriz(*dctRuido, dctRuidoFileName); //DCT con ruido
-		grabarMatriz(dctRuidoEliminado, dctRuidoEliminadoFileName); //DCT atenuar
+
+		Matriz* vectorDCTOriginal = convertirImagenAVector(*dctOriginal);
+		grabarSonido(*vectorDCTOriginal, dctOriginalFileName);
+		Matriz* vectorDCTRuido = convertirImagenAVector(*dctRuido);
+		grabarSonido(*vectorDCTRuido, dctRuidoFileName);
+		Matriz* vectorDctRuidoEliminado = convertirImagenAVector(dctRuidoEliminado);
+		grabarSonido(*vectorDctRuidoEliminado, dctOriginalFileName);
+
 		grabarMatriz(*res, resFileName); //Resultado
 		delete res;
 	}
