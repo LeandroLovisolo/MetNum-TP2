@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
 		//Veo los metodos de eliminacion
 		if(strcmp(metodo_eliminacion, "atenuar") == 0 && isdigit(param_metodo[0])) {
 			atenuarImagen(dctRuidoEliminado,
-					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3447,
+					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() * 0.3,
 					      dctRuidoEliminado.filas() * dctRuidoEliminado.columnas() - 1,
 					      atof(param_metodo));
 		}
