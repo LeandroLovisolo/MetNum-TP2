@@ -130,41 +130,49 @@ En el caso de señales bidimensionales representadas con matrices $\mathbb{R}^{n
 
 \section{Desarrollo}
 
+\subsection{Métodos de generación de ruido}
 Evaluamos dos métodos para reducir los tipos de ruido descritos a continuación. Para cada método realizamos una serie de experimentos con distintos tipos de muestras, y utilizamos la ecuación de \textit{peak signal-noise ratio}, de ahora en más PSNR\footnote{La fórmula del PSNR se encuentra en el apéndice A.} para medir el nivel de información recuperado. 
 
 Los tipos de ruido tratados son los siguientes:
 
-\begin{description}
-
-\item[Ruido aditivo:]
+\subsubsection{Ruido aditivo}
 
 Suma a cada elemento de la muestra una variable aleatoria. En nuestros experimentos, utilizamos variables aleatorias con distribución normal, con media cero y varianza 10.
 
 Observamos que estos parámetros generan una deformación perceptible en todas nuestras muestras, pero no las distorsionan al punto de volverse irreconocibles.
 
-\item[Ruido impulsivo:]
+\subsubsection{Ruido impulsivo:}
 
 Reemplaza cada elemento de la muestra por $max$ o $min$ con probabilidad $p$, donde $max$ y $min$ representan el valor máximo y mínimo que adquieren los elementos de la muestra, y $p$ variable de acuerdo al experimento.
 
 Utilizamos $p = 0.01$ en todos nuestros experimentos. Observamos que probabilidades más altas distorsionan demasiado las muestras y dificultan el análisis.
 
-\end{description}
+
+\subsection{Métodos de eliminación de ruido}
 
 Presentamos los dos métodos evaluados a continuación.
 
+\subsubsection{Umbralar}
+Dado un umbral $\beta$ y un índice $i$, anulamos todos los coeficientes con índice mayor o igual a $i$ y valor absoluto menor a $\beta$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Atenuar                                                                   %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Por los mismos motivos analizados en el método \textit{Atenuar}, usamos índices $i = n * 0.5$ e $i = n * 0.3$ para el caso de muestras unidimensionales y bidimensionales, respectivamente.
 
+Despues de probar con distintos umbrales, logramos maximizar el PSNR obtenido utilizando $\beta = (max - min) * 0.1$ en la mayoría de los experimentos realizados, donde $max$ y $min$ representan el valor máximo y mínimo que adquieren los elementos de la muestra.
 
-\subsection{Atenuar}
-
+\subsubsection{Atenuar}
 Dados una constante $k$ y un índice $i$, multiplicamos por $k$ los coeficientes de la señal transformada con índice mayor o igual a $i$.
 
 Decidimos usar índices $i = n * 0.5$ e $i = n * 0.3$ para el caso de muestras unidimensionales y bidimensionales, respectivamente. Para las muestras evaluadas, estos índices maximizan el nivel de PSNR observados luego de aplicar el método. Al transformar estas muestras, observamos que el grueso de la información se encuentra en los coeficientes más bajos, y por lo tanto al atenuar los coeficientes correspondientes a frecuecias más elevadas se produce una mejora en la relación señal ruido dejando intactos los coeficientes con la mayoría de la información.
 
 Similarmente, el $k$ elegido es $0.1$. Valores más altos no logran reducir significativamente el ruido, y anular los coeficientes de índice mayor a $i$ implica una importante pérdida de información.
+
+
+\section{Resultados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Atenuar                                                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Atenuar}
 
 Presentamos a continuación los resultados de distintos experimentos aplicando este método.
 
@@ -298,13 +306,6 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \subsection{Umbralizar}
 
-Dado un umbral $\beta$ y un índice $i$, anulamos todos los coeficientes con índice mayor o igual a $i$ y valor absoluto menor a $\beta$.
-
-Por los mismos motivos analizados en el método \textit{Atenuar}, usamos índices $i = n * 0.5$ e $i = n * 0.3$ para el caso de muestras unidimensionales y bidimensionales, respectivamente.
-
-Despues de probar con distintos umbrales, logramos maximizar el PSNR obtenido utilizando $\beta = (max - min) * 0.1$ en la mayoría de los experimentos realizados, donde $max$ y $min$ representan el valor máximo y mínimo que adquieren los elementos de la muestra.
-
-
 \subsubsection{Ruido aditivo en audio}
 
 \begin{description}
@@ -426,6 +427,12 @@ Despues de probar con distintos umbrales, logramos maximizar el PSNR obtenido ut
   \includegraphics[width=15cm]{graficos/lena_impulsivo_umbralizar_dct.png} 
   \caption{Muestra en base DCT.}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Discusión                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Discusión}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
