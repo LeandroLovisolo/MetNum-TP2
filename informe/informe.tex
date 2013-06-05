@@ -168,6 +168,16 @@ Similarmente, el $k$ elegido es $0.1$. Valores más altos no logran reducir sign
 
 
 \section{Resultados}
+\subsection{Interpretación de resultados}
+\begin{itemize}
+\item Las figuras correspondientes a la DCT de las imágenes (figuras 6, 10, 16 y 20) fueron creados recorriendo las matrices transformadas de las imágenes en forma diagonal de abajo hacia arriba.
+
+Las figuras figuras 2, 4, 8, 12, 14 y 18 corresponden a la DCT de las señales.
+
+Estas imágenes tienen como intención mostrar como el ruido modifica la DCT y como actúa el método de eliminación de ruido.
+\item En cada resultado se identifica el PSNR resultante del ruido agregado y el PSNR final relacionado a la perturbación restante después de aplicar el método de eliminación del ruido.
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Atenuar                                                                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,7 +190,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] ramp1234.txt
-  \item[PSNR inicial:] 22.55 dB
+  \item[PSNR ruido agregado:] 22.55 dB
   \item[PSNR final:] 25.03 dB
 \end{description}
 
@@ -199,7 +209,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] dopp512.txt
-  \item[PSNR inicial:] 14.02 dB
+  \item[PSNR ruido agregado:] 14.02 dB
   \item[PSNR final:] 16.28 dB
 \end{description}
 
@@ -220,7 +230,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] lena.pgm
-  \item[PSNR inicial:] 27.23 dB
+  \item[PSNR ruido agregado:] 27.23 dB
   \item[PSNR final:] 28.62 dB
 \end{description}
 
@@ -251,7 +261,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] dopp512.txt
-  \item[PSNR inicial:] 15.54 dB
+  \item[PSNR ruido agregado:] 15.54 dB
   \item[PSNR final:] 17.55 dB
 \end{description}
 
@@ -272,7 +282,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] lena.pgm
-  \item[PSNR inicial:] 21.53 dB
+  \item[PSNR ruido agregado:] 21.53 dB
   \item[PSNR final:] 24.92 dB
 \end{description}
 
@@ -300,17 +310,17 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Umbralizar                                                                %%
+%% Umbralar                                                                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Umbralizar}
+\subsection{Umbralar}
 
 \subsubsection{Ruido aditivo en audio}
 
 \begin{description}
   \item[Muestra:] ramp1234.txt
-  \item[PSNR inicial:] 22.54 dB
+  \item[PSNR ruido agregado:] 22.54 dB
   \item[PSNR final:] 24.60 dB
 \end{description}
 
@@ -329,7 +339,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] dopp512.txt
-  \item[PSNR inicial:] 14.31 dB
+  \item[PSNR ruido agregado:] 14.31 dB
   \item[PSNR final:] 16.45 dB
 \end{description}
 
@@ -350,7 +360,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] lena.pgm
-  \item[PSNR inicial:] 27.27 dB
+  \item[PSNR ruido agregado:] 27.27 dB
   \item[PSNR final:] 28.08 dB
 \end{description}
 
@@ -359,13 +369,13 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{graficos/lena_aditivo_muestra.png}    
-    \caption{Antes de umbralizar.}
+    \caption{Antes de umbralar.}
   \end{subfigure}
   ~ 
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{graficos/lena_aditivo_umbralizar_muestra.png}
-    \caption{Después de umbralizar.}
+    \caption{Después de umbralar.}
   \end{subfigure}
   \caption{Ruido aditivo en imágenes.}
 \end{figure}
@@ -381,7 +391,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] dopp512.txt
-  \item[PSNR inicial:] 14.87 dB
+  \item[PSNR ruido agregado:] 14.87 dB
   \item[PSNR final:] 16.96 dB
 \end{description}
 
@@ -402,7 +412,7 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 
 \begin{description}
   \item[Muestra:] lena.pgm
-  \item[PSNR inicial:] 21.39 dB
+  \item[PSNR ruido agregado:] 21.39 dB
   \item[PSNR final:] 24.92 dB
 \end{description}
 
@@ -411,13 +421,13 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{graficos/lena_impulsivo_muestra.png}    
-    \caption{Antes de umbralizar.}
+    \caption{Antes de umbralar.}
   \end{subfigure}
   ~ 
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{graficos/lena_impulsivo_umbralizar_muestra.png}
-    \caption{Después de umbralizar.}
+    \caption{Después de umbralar.}
   \end{subfigure}
   \caption{Ruido impulsivo en imágenes.}
 \end{figure}
@@ -433,8 +443,28 @@ Presentamos a continuación los resultados de distintos experimentos aplicando e
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Discusión}
+\subsection{Aplicación sobre ondas}
+\subsubsection{Ruido aditivo}
+Al observar las figuras relacionadas al ruido aditivo en ondas (figuras 1 y 3 por ejemplo) puede observarse como este tipo de ruido afecta a toda la señal de manera uniforme. La DCT correspondiente a cada figura muestra también estas perturbaciones en todo el rango de frecuencias.
+\begin{description}
+\item[Método de atenuar sobre ruido aditivo:]
+Utilizando el método de atenuar sobre este ruido es posible ver en las imágenes descriptas anteriormente como atenúa el ruido reduciendo los saltos en las ondas que este  produjo aproximandose levemente a la señal original y mostrando un PSNR más bajo.
 
+Puede distinguirse en las figuras de las DCT's correspondientes que la elección del segmento (incluir segmento) y su atenuación produce una interesante atenuación de las perturbaciones creadas por el ruido haciendo que la DCT filtrada sea similar a la DCT sin ruido.
+\item[Método de umbralar para ruido aditivo:]
+Para el método de umbralar () es posible notar como su aplicación sobre el segmento determinado produce una reducción de la perturbación de la señal, esta reducción se nota menor que en atenuar debido a su naturaleza de "aplanar" (poner en 0) las ondas que superen cierto valor haciendo que en ciertos casos haya una perdida de información.
+\end{description}
+\subsubsection{Ruido impulsivo}
+En el caso del ruido impulsivo en ondas se puede observar (figuras 7 y 17) como este ruido conserva la señal en su estado original exceptuando en ciertos puntos dónde se produce un pico hacia su punto mínimo o máximo.
+\begin{description}
+\item[Método de atenuar para ruido impulsivo:]
+Puede observarse que aplicando atenuar sobre el intervalo determinado se producen alteraciones en otras partes de la señal que no las presentaban antes pero se puede notar que el método logra atenuar en cierta medida los saltos agregados por el ruido.
+\item[Método de umbralar para ruido impulsivo:]
+\end{description}
 
+\subsection{Aplicación sobre imágenes}
+\subsubsection{Ruido aditivo}
+\subsubsection{Ruido impulsivo}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Conclusiones                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -446,7 +476,7 @@ En el caso de las imágenes, observamos que al transformarlas al dominio de la D
 
 En contraste, los tipos de ruidos evaluados sobre señales unidimensionales se manifiestan en todos los coeficientes en el espacio de la DCT. No obstante, las muestras evaluadas presentan el grueso de la información en coeficientes medios y bajos, por lo que es posible alcanzar una mejora en PSNR atenuando los coeficientes de frecuencias más elevadas sin pérdidas significativas de información. Esto significa que la muestra resultante conserva el ruido original, pero con menor intensidad en las frecuencias más altas.
 
-En cuanto a los métodos analizados, observamos incrementos de PSNR similares en ambos métodos, pero \textit{Atenuar} resulta superior a \textit{Umbralizar} en casi todos los experimentos, ya que conserva más información al atenuar coeficientes en lugar de eliminarlos completamente. 
+En cuanto a los métodos analizados, observamos incrementos de PSNR similares en ambos métodos, pero \textit{Atenuar} resulta superior a \textit{Umbralar} en casi todos los experimentos, ya que conserva más información al atenuar coeficientes en lugar de eliminarlos completamente. 
 
 En conclusión, los métodos basados en la DCT resultan una buena herramienta para eliminar estos tipos de ruido presentes en imágenes. Al aplicarlos en señales unidimensionales también se obtiene una mejora en el PSNR, pero menor que el caso bidimensional ya que no modifican el ruido en sus coeficientes más bajos.
 
