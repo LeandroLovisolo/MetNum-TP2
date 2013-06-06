@@ -460,11 +460,29 @@ En el caso del ruido impulsivo en ondas se puede observar (figuras 7 y 17) como 
 \item[Método de atenuar para ruido impulsivo:]
 Puede observarse que aplicando atenuar sobre el intervalo determinado se producen alteraciones en otras partes de la señal que no las presentaban antes pero se puede notar que el método logra atenuar en cierta medida los saltos agregados por el ruido.
 \item[Método de umbralar para ruido impulsivo:]
+Se puede observar, como en el método de atenuar, que umbralar perturba a la señal. Si bien el método modifica en menos medida a gran parte de la señal que puede verse en la figura 17, se puede ver como modifica fuertemente a las frecuencias altas encontradas en el intervalo [0,100] de la imagen.
+
 \end{description}
 
 \subsection{Aplicación sobre imágenes}
 \subsubsection{Ruido aditivo}
+Podemos ver, tanto en la figura 5 como en la 15 el cambio en la imagen producido por el ruido aditivo, el cuál, deja un granulado uniforme en toda la imagen.
+\begin{description}
+\item[Método de umbralar y atenuar sobre ruido aditivo:]
+Ambos métodos, aplicados sobre el intervalo determinado producen una pérdida de detalle en la imagen. Se puede notar como el granulado se atenua y una imagen algo más difuminada es obtenida.
+
+Esto se debe a que las frecuencias más altas de los cosenos (segmento seleccionado) son las encargadas de acoplar los cosenos de cambios más abruptos a las imagenes brindando más detalle.
+\end{description}
 \subsubsection{Ruido impulsivo}
+Las figuras 9 y 19 muestran la aplicación del ruido impulsivo en las imagenes. Se pueden notar los píxeles blancos y negros esparcidos aleatoriamente por la imagen.
+
+Este ruido produce un cambio más perceptible a simple vista y obtiene un valor de PSNR menor que el obtenido en el ruido aditivo mostrando mayor perturbación en la imagen.
+\begin{description}
+\item[Método de umbralar y atenuar sobre ruido impulsivo:]
+En ambos métodos aplicados sobre el intervalo determinado se puede observar una difuminación en la imagen la cuál, si bien no elimina los píxeles impulsados, al estar difuminados parecen fundirse mejor con el fondo.
+
+En ambos casos se obtiene una mejora tanto visual como del PSNR.
+\end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Conclusiones                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
